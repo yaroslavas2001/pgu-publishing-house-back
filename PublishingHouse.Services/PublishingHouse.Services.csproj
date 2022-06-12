@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.15.1" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Extensions\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\PublishingHouse.Data\PublishingHouse.Data.csproj" />
+      <ProjectReference Include="..\PublishingHouse.External\PublishingHouse.External.csproj" />
+      <ProjectReference Include="..\PublishingHouse.Interfaces\PublishingHouse.Interfaces.csproj" />
+    </ItemGroup>
+
+</Project>
