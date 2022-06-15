@@ -18,10 +18,6 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PublishingHouse.Tests", "PublishingHouse.Tests\PublishingHouse.Tests.csproj", "{786BC462-55C9-4493-A88A-2B050BA9DDD4}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionGraps", "SolutionGraps", "{BCCFE6A6-3FFA-4B59-A8F2-8D014E354FE6}"
-	ProjectSection(SolutionItems) = preProject
-		CodeMap1.dgml = CodeMap1.dgml
-		Graph1.dgml = Graph1.dgml
-	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

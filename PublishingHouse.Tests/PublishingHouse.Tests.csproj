@@ -26,8 +26,6 @@
         <ProjectReference Include="..\PublishingHouse.Data\PublishingHouse.Data.csproj" />
         <ProjectReference Include="..\PublishingHouse.Interfaces\PublishingHouse.Interfaces.csproj" />
         <ProjectReference Include="..\PublishingHouse.Services\PublishingHouse.Services.csproj" />
-        <ProjectReference Include="..\PublishingHouse.StorageEnums\PublishingHouse.StorageEnums.csproj" />
-        <ProjectReference Include="..\Service\PublishingHouse.Services.csproj" />
     </ItemGroup>
 
 </Project>

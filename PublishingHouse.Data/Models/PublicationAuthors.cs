@@ -2,9 +2,9 @@
 
 public class PublicationAuthors
 {
-	public int PublicationId { get; set; }
+	public long PublicationId { get; set; }
 
-	public int AuthorId { get; set; }
+	public long AuthorId { get; set; }
 
 	public Publication Publication { get; set; }
 

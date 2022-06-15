@@ -40,11 +40,11 @@ internal static class DependenciesHelper
 		serviceCollection.AddControllers();
 		serviceCollection.AddCors();
 		serviceCollection.AddSpaStaticFiles(options => options.RootPath = "ClientApp/dist");
-		serviceCollection.AddDbContext<DataContext>(x =>
-		{
-			x.UseNpgsql(configuration.GetConnectionString("PostgresSql"),
-				x => x.MigrationsAssembly(nameof(DataContext)));
-		});
+
+		serviceCollection.AddDbContext<DataContext>(options =>
+			options.UseSqlServer(configuration.GetConnectionString("Default"),
+				sqliteDbContextOptionsBuilder => 
+					sqliteDbContextOptionsBuilder.MigrationsAssembly( $"{nameof(PublishingHouse)}.{nameof(PublishingHouse.Data)}")));
 
 		return serviceCollection;
 	}

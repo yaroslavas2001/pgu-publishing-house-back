@@ -20,11 +20,11 @@ public class Publication
 
 	public User User { get; set; }
 
-	public int UserId { get; set; }
+	public long UserId { get; set; }
 
 	public List<PublicationAuthors> Authors { get; set; }
 
 	public Reviewer Reviewer { get; set; }
 
-	public int? ReviewerId { get; set; }
+	public long? ReviewerId { get; set; }
 }

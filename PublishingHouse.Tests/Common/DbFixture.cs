@@ -10,7 +10,7 @@ public class DbFixture : IDisposable
 	{
 		Context = new DataContext(
 			new DbContextOptionsBuilder<DataContext>()
-				.UseNpgsql("Host=localhost;Port=5432;Database=Yarik.test;Username=postgres;Password=test").Options);
+				.UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=PublishingHouse;Integrated Security=True;Connect Timeout=300;").Options);
 	}
 
 	public DataContext Context { get; set; }
