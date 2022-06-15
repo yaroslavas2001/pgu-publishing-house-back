@@ -12,7 +12,7 @@ namespace PublishingHouse.Helpers;
 
 internal static class DependenciesHelper
 {
-	internal static IServiceCollection AddServices(this IServiceCollection serviceCollection,
+	internal static IServiceCollection InjectDependencies(this IServiceCollection serviceCollection,
 		IConfiguration configuration)
 	{
 		serviceCollection.AddCors(options =>
@@ -29,24 +29,28 @@ internal static class DependenciesHelper
 						.AllowAnyMethod());
 		});
 
-		serviceCollection.AddScoped<IAuthService, AuthService>();
-		serviceCollection.AddScoped<IAuthorService, AuthorService>();
+		serviceCollection.AddServices();
 		serviceCollection.AddCustomSwagger();
-
 		serviceCollection.ConfigureAuthentication();
-
-		// Add services to the container.
-		//builder.Services.AddRazorPages();
 		serviceCollection.AddControllers();
 		serviceCollection.AddCors();
 		serviceCollection.AddSpaStaticFiles(options => options.RootPath = "ClientApp/dist");
 
 		serviceCollection.AddDbContext<DataContext>(options =>
 			options.UseSqlServer(configuration.GetConnectionString("Default"),
-				sqliteDbContextOptionsBuilder => 
-					sqliteDbContextOptionsBuilder.MigrationsAssembly( $"{nameof(PublishingHouse)}.{nameof(PublishingHouse.Data)}")));
+				sqliteDbContextOptionsBuilder =>
+					sqliteDbContextOptionsBuilder.MigrationsAssembly($"{nameof(PublishingHouse)}.{nameof(PublishingHouse.Data)}")));
 
 		return serviceCollection;
+	}
+
+	private static IServiceCollection AddServices(this IServiceCollection service)
+	{
+		service.AddScoped<IAuthService, AuthService>();
+		service.AddScoped<IAuthorService, AuthorService>();
+		service.AddScoped<IFacultyService, FacultyService>();
+
+		return service;
 	}
 
 	private static IServiceCollection AddCustomSwagger(this IServiceCollection serviceCollection)

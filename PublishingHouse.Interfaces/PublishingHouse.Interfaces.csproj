@@ -11,6 +11,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\PublishingHouse.Data\PublishingHouse.Data.csproj" />
       <ProjectReference Include="..\PublishingHouse.StorageEnums\PublishingHouse.StorageEnums.csproj" />
     </ItemGroup>
 

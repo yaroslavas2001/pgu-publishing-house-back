@@ -11,7 +11,7 @@ public sealed class DataContext : DbContext
 		//Database.Migrate();
 	}
 
-	public DbSet<Faculty> Faculties { get; set; }
+	public DbSet<Faculty?> Faculties { get; set; }
 
 	public DbSet<Department> Departments { get; set; }
 

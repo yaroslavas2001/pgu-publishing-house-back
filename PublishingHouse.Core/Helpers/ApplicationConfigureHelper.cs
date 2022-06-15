@@ -1,4 +1,5 @@
 ﻿using PublishingHouse.Interfaces.Constants;
+using PublishingHouse.Middlewares;
 
 namespace PublishingHouse.Helpers;
 
@@ -6,6 +7,7 @@ public static class ApplicationConfigureHelper
 {
 	public static WebApplication ConfigureApplication(this WebApplication app)
 	{
+		app.UseMiddleware<ExceptionMiddleware>();
 		app.UseSpaStaticFiles();
 		app.UseDeveloperExceptionPage();
 		app.UseRouting();

@@ -33,6 +33,8 @@
 
 	<ItemGroup>
 		<Folder Include="Helpers\" />
+		<Folder Include="Middlewares\" />
+		<Folder Include="Models\Faculty\" />
 	</ItemGroup>
 
 	<ItemGroup>
