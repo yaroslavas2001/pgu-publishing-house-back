@@ -2,9 +2,9 @@
 using PublishingHouse.Data;
 using PublishingHouse.Data.Models;
 using PublishingHouse.Interfaces;
+using PublishingHouse.Interfaces.Exstensions.Pagination;
 using PublishingHouse.Interfaces.Model;
 using PublishingHouse.Interfaces.Model.Author;
-using PublishingHouse.Services.Extensions;
 using PublishingHouse.StorageEnums;
 
 namespace PublishingHouse.Services;
@@ -48,40 +48,38 @@ public class AuthorService : IAuthorService
 
 		return new AuthorShortModel
 		{
-			FatgerName = add.SureName,
+			SureName = add.SureName,
 			FirstName = add.FirstName,
 			Id = add.Id,
 			SecondName = add.LastName
 		};
 	}
 
-	public async Task<IReadOnlyCollection<AuthorShortModel>> SearchAuthor(AuthorGetModel model)
+	public async Task<SearchAuthorResponse> SearchAuthor(AuthorGetModel model)
 	{
 		return await _db.Authors
 			.Where(x =>
 				x.SureName.Contains(model.Search)
 				|| x.FirstName.Contains(model.Search)
 				|| x.LastName.Contains(model.Search)
-				)
-			.Page(model)
-			.Select(x => new AuthorShortModel
+			).GetPageAsync<SearchAuthorResponse, Author, AuthorShortModel>(model, x => new AuthorShortModel
 			{
-				FatgerName = x.SureName,
-				FirstName = x.FirstName,
 				Id = x.Id,
-				SecondName = x.LastName
-			}).ToArrayAsync();
+				FirstName = x.FirstName,
+				SecondName = x.LastName,
+				SureName = x.SureName 
+			});
 	}
 
 
-	public async Task<IReadOnlyCollection<AuthorModel>> GetAuthorAsync(PaginationRequest page, long? authorId = null) //todo PAGINATION
+	public async Task<GetAuthorResponse> GetAuthorsAsync(GetAuthorsRequest request) //todo PAGINATION
 	{
 		var query = _db.Authors.AsQueryable();
 
-		if (authorId.HasValue)
-			query = query.Where(x => x.Id  == authorId);
+		if (request.AuthorId.HasValue)
+			query = query.Where(x => x.Id  == request.AuthorId);
 
-		return await query.Page(page).Select(x => new AuthorModel
+		return await query.GetPageAsync<GetAuthorResponse, Author, AuthorModel>(request, x => new AuthorModel
 		{
 			SureName = x.SureName,
 			FirstName = x.FirstName,
@@ -94,7 +92,7 @@ public class AuthorService : IAuthorService
 			AcademicDegree = x.AcademicDegree,
 			NonStuffPosition = x.NonStuffPosition,
 			NonStuffWorkPlace = x.NonStuffWorkPlace
-		}).ToArrayAsync();
+		});
 	}
 
 	public async Task Update(AuthorUpdateModel model)

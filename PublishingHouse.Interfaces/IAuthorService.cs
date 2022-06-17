@@ -7,9 +7,9 @@ public interface IAuthorService
 {
 	Task<AuthorShortModel> Add(AuthorAddModel model);
 
-	Task<IReadOnlyCollection<AuthorShortModel>> SearchAuthor(AuthorGetModel model);
+	Task<SearchAuthorResponse> SearchAuthor(AuthorGetModel model);
 
-	Task<IReadOnlyCollection<AuthorModel>> GetAuthorAsync(PaginationRequest page, long? authorId = null);
+	Task<GetAuthorResponse> GetAuthorsAsync(GetAuthorsRequest request);
 
 	Task Update(AuthorUpdateModel model);
 

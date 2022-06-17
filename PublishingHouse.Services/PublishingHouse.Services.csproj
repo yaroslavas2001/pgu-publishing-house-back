@@ -11,10 +11,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Extensions\" />
-    </ItemGroup>
-
-    <ItemGroup>
       <ProjectReference Include="..\PublishingHouse.Data\PublishingHouse.Data.csproj" />
       <ProjectReference Include="..\PublishingHouse.External\PublishingHouse.External.csproj" />
       <ProjectReference Include="..\PublishingHouse.Interfaces\PublishingHouse.Interfaces.csproj" />

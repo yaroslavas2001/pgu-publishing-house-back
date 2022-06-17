@@ -2,8 +2,9 @@
 
 namespace PublishingHouse.Interfaces.Model.Author;
 
-public class AuthorGetModel : IPaginationRequest
+public class GetAuthorsRequest:IPaginationRequest
 {
-	public string Search { get; set; } = string.Empty;
 	public Page Page { get; set; }
+	
+	public long? AuthorId { get; set; } = null;
 }

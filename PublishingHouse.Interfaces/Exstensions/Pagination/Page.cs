@@ -1,10 +1,11 @@
-﻿namespace PublishingHouse.Interfaces.Model;
+﻿namespace PublishingHouse.Interfaces.Exstensions.Pagination;
 
 /// <summary>
-///		Модель пагинации запросов
+///		Модель страницы
 /// </summary>
-public class PaginationRequest
+public class Page
 {
+
 	/// <summary>
 	///		Пропустить
 	/// </summary>

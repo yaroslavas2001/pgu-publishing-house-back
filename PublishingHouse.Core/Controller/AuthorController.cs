@@ -30,22 +30,22 @@ public class AuthorController : Microsoft.AspNetCore.Mvc.Controller
 
 	[HttpGet]
 	[Route($"{nameof(Search)}")]
-	[ProducesResponseType(200, Type = typeof(BaseResponse<IReadOnlyCollection<AuthorShortModel>>))]
+	[ProducesResponseType(200, Type = typeof(BaseResponse<SearchAuthorResponse>))]
 	[ProducesResponseType(400, Type = typeof(BaseResponse))]
-	public async Task<BaseResponse<IReadOnlyCollection<AuthorShortModel>>> Search([FromQuery] AuthorGetModel model)
+	public async Task<BaseResponse<SearchAuthorResponse>> Search([FromQuery] AuthorGetModel model)
 	{
 		var result = await _authorService.SearchAuthor(model);
-		return new BaseResponse<IReadOnlyCollection<AuthorShortModel>>(result);
+		return new BaseResponse<SearchAuthorResponse>(result);
 	}
 
 	[HttpGet]
 	[Route($"{nameof(Get)}")]
 	[ProducesResponseType(200, Type = typeof(BaseResponse<IReadOnlyCollection<AuthorShortModel>>))]
 	[ProducesResponseType(400, Type = typeof(BaseResponse))]
-	public async Task<BaseResponse<IReadOnlyCollection<AuthorModel>>> Get([FromQuery] PaginationRequest page, [FromQuery] long? authorId = null)
+	public async Task<BaseResponse<GetAuthorResponse>> Get([FromQuery] GetAuthorsRequest request)
 	{
-		var result = await _authorService.GetAuthorAsync(page, authorId);
-		return new BaseResponse<IReadOnlyCollection<AuthorModel>>(result);
+		var result = await _authorService.GetAuthorsAsync(request);
+		return new BaseResponse<GetAuthorResponse>(result);
 	}
 
 	[HttpPatch]
