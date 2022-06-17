@@ -6,42 +6,67 @@ using PublishingHouse.Interfaces.Model.Author;
 
 namespace PublishingHouse.Controller;
 
-[Route("/Author")]
+[Route("/[controller]")]
 [Produces("application/json")]
-[Authorize]
 public class AuthorController : Microsoft.AspNetCore.Mvc.Controller
 {
-	[HttpPost]
-	[Route($"/Author/{nameof(Add)}")]
-	[ProducesResponseType(200, Type = typeof(BaseResponse<AuthorShortResponse>))]
-	[ProducesResponseType(400, Type = typeof(BaseResponse))]
-	public async Task<BaseResponse<AuthorShortResponse>> Add([FromServices] IAuthorService service,
-		AuthorAddRequest request)
+	private readonly IAuthorService _authorService;
+
+	public AuthorController(IAuthorService authorService)
 	{
-		try
-		{
-			return await service.Add(request);
-		}
-		catch (Exception e)
-		{
-			return new BaseResponse<AuthorShortResponse>(e);
-		}
+		_authorService = authorService;
 	}
 
 	[HttpPost]
-	[Route($"/Author/{nameof(Get)}")]
-	[ProducesResponseType(200, Type = typeof(BaseResponse<AuthorShortResponse>))]
+	[Authorize]
+	[Route($"{nameof(Add)}")]
+	[ProducesResponseType(200, Type = typeof(BaseResponse<AuthorShortModel>))]
 	[ProducesResponseType(400, Type = typeof(BaseResponse))]
-	public async Task<BaseResponse<List<AuthorShortResponse>>> Get([FromServices] IAuthorService service,
-		AuthorGetRequest request)
+	public async Task<BaseResponse<AuthorShortModel>> Add(AuthorAddModel model)
 	{
-		try
-		{
-			return await service.Get(request);
-		}
-		catch (Exception e)
-		{
-			return new BaseResponse<List<AuthorShortResponse>>(e);
-		}
+		var response = await _authorService.Add(model);
+		return new BaseResponse<AuthorShortModel>(response);
+	}
+
+	[HttpGet]
+	[Route($"{nameof(Search)}")]
+	[ProducesResponseType(200, Type = typeof(BaseResponse<IReadOnlyCollection<AuthorShortModel>>))]
+	[ProducesResponseType(400, Type = typeof(BaseResponse))]
+	public async Task<BaseResponse<IReadOnlyCollection<AuthorShortModel>>> Search([FromQuery] AuthorGetModel model)
+	{
+		var result = await _authorService.SearchAuthor(model);
+		return new BaseResponse<IReadOnlyCollection<AuthorShortModel>>(result);
+	}
+
+	[HttpGet]
+	[Route($"{nameof(Get)}")]
+	[ProducesResponseType(200, Type = typeof(BaseResponse<IReadOnlyCollection<AuthorShortModel>>))]
+	[ProducesResponseType(400, Type = typeof(BaseResponse))]
+	public async Task<BaseResponse<IReadOnlyCollection<AuthorModel>>> Get([FromQuery] PaginationRequest page, [FromQuery] long? authorId = null)
+	{
+		var result = await _authorService.GetAuthorAsync(page, authorId);
+		return new BaseResponse<IReadOnlyCollection<AuthorModel>>(result);
+	}
+
+	[HttpPatch]
+	[Authorize]
+	[Route($"{nameof(Update)}")]
+	[ProducesResponseType(200, Type = typeof(BaseResponse))]
+	[ProducesResponseType(400, Type = typeof(BaseResponse))]
+	public async Task<BaseResponse> Update([FromBody] AuthorUpdateModel model)
+	{
+		await _authorService.Update(model);
+		return new BaseResponse();
+	}
+
+	[HttpDelete]
+	[Authorize]
+	[Route($"{nameof(Delete)}")]
+	[ProducesResponseType(200, Type = typeof(BaseResponse))]
+	[ProducesResponseType(400, Type = typeof(BaseResponse))]
+	public async Task<BaseResponse> Delete([FromQuery] long authorId)
+	{
+		await _authorService.Remove(authorId);
+		return new BaseResponse();
 	}
 }

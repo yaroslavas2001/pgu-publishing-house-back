@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using PublishingHouse.Interfaces;
 using PublishingHouse.Interfaces.Model;
 using PublishingHouse.Interfaces.Model.Departmanet;
-using PublishingHouse.Models;
+using PublishingHouse.Models.Department;
 
 namespace PublishingHouse.Controller;
 
@@ -34,7 +34,7 @@ public class DepartmaneController : Microsoft.AspNetCore.Mvc.Controller
 	[Authorize]
 	public async Task<BaseResponse<long>> Add([FromBody] AddDepartmentRequest request)
 	{
-		var result = await _departmentService.AddDepartmentAsync(request.FacultyId, request.Name);
+		var result = await _departmentService.AddDepartmentAsync(request.FacultyId, request.DepartmentName);
 		return new BaseResponse<long>(result);
 	}
 

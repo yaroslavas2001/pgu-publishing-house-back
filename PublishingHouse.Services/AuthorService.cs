@@ -18,23 +18,23 @@ public class AuthorService : IAuthorService
 		_db = db;
 	}
 
-	public async Task<BaseResponse<AuthorShortResponse>> Add(AuthorAddRequest request)
+	public async Task<AuthorShortModel> Add(AuthorAddModel model)
 	{
 		var add = new Author
 		{
-			Email = request.Email,
-			Contacts = request.Contacts,
-			SureName = request.FatherName,
-			FirstName = request.FirstName,
-			IsTeacher = request.IsTeacher,
-			LastName = request.LastName
+			Email = model.Email,
+			Contacts = model.Contacts,
+			SureName = model.FatherName,
+			FirstName = model.FirstName,
+			IsTeacher = model.IsTeacher,
+			LastName = model.LastName
 		};
 
-		if (request.IsTeacher)
+		if (model.IsTeacher)
 		{
-			add.AcademicDegree = (EnumAcademicDegree) request.DegreeId;
-			add.DepartmentId = request.DepartmentId;
-			add.EmployeerPosition = (EnumEmployeePosition) request.PositionId;
+			add.AcademicDegree = (EnumAcademicDegree)model.DegreeId;
+			add.DepartmentId = model.DepartmentId;
+			add.EmployeerPosition = (EnumEmployeePosition)model.PositionId;
 		}
 		else
 		{
@@ -46,37 +46,93 @@ public class AuthorService : IAuthorService
 		await _db.AddAsync(add);
 		await _db.SaveChangesAsync();
 
-		return new BaseResponse<AuthorShortResponse>(new AuthorShortResponse
+		return new AuthorShortModel
 		{
 			FatgerName = add.SureName,
 			FirstName = add.FirstName,
 			Id = add.Id,
 			SecondName = add.LastName
-		});
+		};
 	}
 
-	public async Task<BaseResponse<List<AuthorShortResponse>>> Get(AuthorGetRequest request)
+	public async Task<IReadOnlyCollection<AuthorShortModel>> SearchAuthor(AuthorGetModel model)
 	{
-		return new BaseResponse<List<AuthorShortResponse>>(
-			await
-				_db
-					.Authors
-					.Where(x =>
-						x.SureName.Contains(request.Search)
-						|| x.FirstName.Contains(request.Search)
-						|| x.LastName.Contains(request.Search)
-					).Page(request)
-					.Select(x => new AuthorShortResponse
-					{
-						FatgerName = x.SureName,
-						FirstName = x.FirstName,
-						Id = x.Id,
-						SecondName = x.LastName
-					}).ToListAsync());
+		return await _db.Authors
+			.Where(x =>
+				x.SureName.Contains(model.Search)
+				|| x.FirstName.Contains(model.Search)
+				|| x.LastName.Contains(model.Search)
+				)
+			.Page(model)
+			.Select(x => new AuthorShortModel
+			{
+				FatgerName = x.SureName,
+				FirstName = x.FirstName,
+				Id = x.Id,
+				SecondName = x.LastName
+			}).ToArrayAsync();
 	}
 
-	public Task<BaseResponse> Update(AuthorUpdateRequest request)
+
+	public async Task<IReadOnlyCollection<AuthorModel>> GetAuthorAsync(PaginationRequest page, long? authorId = null) //todo PAGINATION
 	{
-		throw new NotImplementedException();
+		var query = _db.Authors.AsQueryable();
+
+		if (authorId.HasValue)
+			query = query.Where(x => x.Id  == authorId);
+
+		return await query.Page(page).Select(x => new AuthorModel
+		{
+			SureName = x.SureName,
+			FirstName = x.FirstName,
+			SecondName = x.LastName,
+			Email = x.Email,
+			DepartmentId = x.DepartmentId,
+			Contacts = x.Contacts,
+			IsTeacher = x.IsTeacher,
+			EmployeerPosition = x.EmployeerPosition,
+			AcademicDegree = x.AcademicDegree,
+			NonStuffPosition = x.NonStuffPosition,
+			NonStuffWorkPlace = x.NonStuffWorkPlace
+		}).ToArrayAsync();
+	}
+
+	public async Task Update(AuthorUpdateModel model)
+	{
+		var author = await _db.Authors.FirstOrDefaultAsync(x => x.Id == model.AuthorId);
+		if (author is null)
+			throw new Exception($"Author Id = {model.AuthorId} is not found!");
+
+		if (!string.IsNullOrWhiteSpace(model.FirstName))
+			author.FirstName = model.FirstName;
+
+		if (!string.IsNullOrWhiteSpace(model.LastName))
+			author.LastName = model.LastName;
+
+		if (!string.IsNullOrWhiteSpace(model.SureName))
+			author.SureName = model.SureName;
+
+		if (!string.IsNullOrWhiteSpace(model.Email))
+			author.Email = model.Email;
+
+		if (model.AcademicDegree.HasValue)
+			author.AcademicDegree = model.AcademicDegree;
+
+		if (model.EmployeerPosition.HasValue)
+			author.EmployeerPosition = model.EmployeerPosition;
+
+		await _db.SaveChangesAsync();
+	}
+
+	public async Task Remove(long id)
+	{
+		if (await _db.Authors.AllAsync(x => x.Id != id))
+			throw new Exception($"Author id = {id} is not exists!");
+
+		if (await _db.PublicationsAuthors.AnyAsync(x => x.AuthorId == id))
+			throw new Exception($"Author with publications can't be deleted!");
+
+		_db.Authors.Remove(new Author { Id = id });
+		await _db.SaveChangesAsync();
 	}
 }

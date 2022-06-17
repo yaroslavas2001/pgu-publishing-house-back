@@ -5,12 +5,12 @@ using PublishingHouse.Interfaces.Model.Auth;
 
 namespace PublishingHouse.Controller;
 
-[Route("/Auth")]
+[Route("/[controller]")]
 [Produces("application/json")]
 public class AuthController : Microsoft.AspNetCore.Mvc.Controller
 {
 	[HttpPost]
-	[Route($"/Auth/{nameof(Login)}")]
+	[Route($"{nameof(Login)}")]
 	[ProducesResponseType(200, Type = typeof(BaseResponse<LoginResponse>))]
 	[ProducesResponseType(400, Type = typeof(BaseResponse))]
 	public async Task<BaseResponse<LoginResponse>> Login([FromServices] IAuthService auth, LoginRequest request)
@@ -26,7 +26,7 @@ public class AuthController : Microsoft.AspNetCore.Mvc.Controller
 	}
 
 	[HttpPost]
-	[Route($"/Auth/{nameof(Register)}")]
+	[Route($"{nameof(Register)}")]
 	[ProducesResponseType(200, Type = typeof(BaseResponse))]
 	[ProducesResponseType(400, Type = typeof(BaseResponse))]
 	public async Task<BaseResponse> Register([FromServices] IAuthService auth, RegisterRequest request)
@@ -42,7 +42,7 @@ public class AuthController : Microsoft.AspNetCore.Mvc.Controller
 	}
 
 	[HttpPost]
-	[Route($"/Auth/{nameof(ActivateAccount)}")]
+	[Route($"{nameof(ActivateAccount)}")]
 	[ProducesResponseType(200, Type = typeof(BaseResponse<TokenResponse>))]
 	[ProducesResponseType(400, Type = typeof(BaseResponse))]
 	public async Task<BaseResponse> ActivateAccount([FromServices] IAuthService auth, ActivateAccountRequest request)

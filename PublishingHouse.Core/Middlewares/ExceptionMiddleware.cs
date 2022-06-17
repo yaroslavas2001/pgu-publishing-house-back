@@ -27,6 +27,7 @@ public class ExceptionMiddleware
 		catch (Exception e)
 		{
 			await context.Response.WriteAsJsonAsync(new BaseResponse(e));
+			context.Response.StatusCode = 500;
 		}
 	}
 }

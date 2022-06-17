@@ -3,12 +3,12 @@ using PublishingHouse.Interfaces.Model;
 
 namespace PublishingHouse.Controller;
 
-[Route("/Document")]
+[Route("/[controller]")]
 [Produces("application/json")]
 public class DocumentController : Microsoft.AspNetCore.Mvc.Controller
 {
 	[HttpPost]
-	[Route($"/Document/{nameof(Add)}")]
+	[Route($"{nameof(Add)}")]
 	[ProducesResponseType(200, Type = typeof(BaseResponse))]
 	[ProducesResponseType(400, Type = typeof(BaseResponse))]
 	public async Task<BaseResponse> Add(IFormFile file)

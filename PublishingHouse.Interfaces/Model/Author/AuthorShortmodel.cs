@@ -1,6 +1,6 @@
 ﻿namespace PublishingHouse.Interfaces.Model.Author;
 
-public class AuthorShortResponse
+public class AuthorShortModel
 {
 	public long Id { get; set; }
 	public string FirstName { get; set; } = string.Empty;

@@ -3,13 +3,14 @@ using Microsoft.AspNetCore.Mvc;
 using PublishingHouse.Interfaces;
 using PublishingHouse.Interfaces.Model;
 using PublishingHouse.Models;
+using PublishingHouse.Models.Faculty;
 
 namespace PublishingHouse.Controller;
 
 /// <summary>
 /// Факультеты
 /// </summary>
-[Route("/Faculty")]
+[Route("/[Controller]/[action]")]
 [Produces("application/json")]
 public class FacultyController : Microsoft.AspNetCore.Mvc.Controller
 {
@@ -26,11 +27,11 @@ public class FacultyController : Microsoft.AspNetCore.Mvc.Controller
 	/// <param name="model"></param>
 	/// <returns></returns>
 	[HttpPost]
-	[Route($"/Faculty/{nameof(Add)}")]
+	//[Route($"/Faculty/{nameof(Add)}")]
 	[ProducesResponseType(200, Type = typeof(BaseResponse<long>))]
 	[ProducesResponseType(400, Type = typeof(BaseResponse))]
-	[Authorize]
-	public async Task<BaseResponse<long>> Add([FromBody] BaseCreateModel model)
+	//[Authorize]
+	public async Task<BaseResponse<long>> Add([FromBody] AddFacultyRequest model)
 	{
 		var result = await _faculty.CreateFacultyAsync(model.Name);
 		return new BaseResponse<long>(result?.Id ?? 0);

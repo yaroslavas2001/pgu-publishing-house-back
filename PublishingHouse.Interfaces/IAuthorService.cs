@@ -5,11 +5,13 @@ namespace PublishingHouse.Interfaces;
 
 public interface IAuthorService
 {
-	Task<BaseResponse<AuthorShortResponse>> Add(AuthorAddRequest request);
-	Task<BaseResponse<List<AuthorShortResponse>>> Get(AuthorGetRequest request);
-	Task<BaseResponse> Update(AuthorUpdateRequest request);
-}
+	Task<AuthorShortModel> Add(AuthorAddModel model);
 
-public class AuthorUpdateRequest
-{
+	Task<IReadOnlyCollection<AuthorShortModel>> SearchAuthor(AuthorGetModel model);
+
+	Task<IReadOnlyCollection<AuthorModel>> GetAuthorAsync(PaginationRequest page, long? authorId = null);
+
+	Task Update(AuthorUpdateModel model);
+
+	Task Remove(long id);
 }

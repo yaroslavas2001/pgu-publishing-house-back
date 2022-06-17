@@ -9,7 +9,7 @@ public static class ApplicationConfigureHelper
 	{
 		app.UseMiddleware<ExceptionMiddleware>();
 		app.UseSpaStaticFiles();
-		app.UseDeveloperExceptionPage();
+		//app.UseDeveloperExceptionPage(); todo: сложна
 		app.UseRouting();
 		app.UseAuthentication();
 		app.UseAuthorization();
