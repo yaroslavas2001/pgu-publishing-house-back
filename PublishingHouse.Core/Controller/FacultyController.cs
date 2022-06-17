@@ -9,7 +9,7 @@ namespace PublishingHouse.Controller;
 /// <summary>
 /// Факультеты
 /// </summary>
-[Route("/Auth")]
+[Route("/Faculty")]
 [Produces("application/json")]
 public class FacultyController : Microsoft.AspNetCore.Mvc.Controller
 {
@@ -42,12 +42,12 @@ public class FacultyController : Microsoft.AspNetCore.Mvc.Controller
 	/// <returns></returns>
 	[HttpGet]
 	[Route($"/Faculty/{nameof(GetAll)}")]
-	[ProducesResponseType(200, Type = typeof(BaseResponse<IEnumerable<(long Id, string Name)>>))]
+	[ProducesResponseType(200, Type = typeof(BaseResponse<IReadOnlyCollection<(long Id, string Name)>>))]
 	[ProducesResponseType(400, Type = typeof(BaseResponse))]
-	public async Task<BaseResponse<IEnumerable<(long Id, string Name)>>> GetAll()
+	public async Task<BaseResponse<IReadOnlyCollection<(long Id, string Name)>>> GetAll()
 	{
 		var result = await _faculty.GetAllFacultyAsync();
-		return new BaseResponse<IEnumerable<(long Id, string Name)>>(result.Select(x => (x.Id, x.Name)));
+		return new BaseResponse<IReadOnlyCollection<(long Id, string Name)>>(result);
 	}
 
 	/// <summary>
@@ -80,7 +80,7 @@ public class FacultyController : Microsoft.AspNetCore.Mvc.Controller
 	}
 
 	/// <summary>
-	/// Переименовать факультет
+	/// Удалить факультет
 	/// </summary>
 	/// <returns></returns>
 	[HttpDelete]

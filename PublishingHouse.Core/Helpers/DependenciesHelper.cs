@@ -49,6 +49,7 @@ internal static class DependenciesHelper
 		service.AddScoped<IAuthService, AuthService>();
 		service.AddScoped<IAuthorService, AuthorService>();
 		service.AddScoped<IFacultyService, FacultyService>();
+		service.AddScoped<IDepartmentService, DepartmentService>();
 
 		return service;
 	}

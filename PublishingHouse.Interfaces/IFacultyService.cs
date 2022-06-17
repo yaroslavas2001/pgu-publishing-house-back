@@ -6,7 +6,7 @@ public interface IFacultyService
 {
 	Task<Faculty?> CreateFacultyAsync(string name);
 
-	Task<List<Faculty>> GetAllFacultyAsync();
+	Task<IReadOnlyCollection<(long id, string name)>> GetAllFacultyAsync();
 
 	Task<Faculty?> GetFacultyAsync(long facultyId);
 

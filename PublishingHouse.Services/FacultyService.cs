@@ -19,7 +19,7 @@ public class FacultyService : IFacultyService
 		if (string.IsNullOrWhiteSpace(name))
 			throw new ArgumentNullException(nameof(name), $"Incorrect faculty name!");
 
-		if (await _db.Faculties.AnyAsync(x => x != null && x.Name == name))
+		if (await _db.Faculties.AnyAsync(x => x.Name == name))
 			throw new Exception($"Faculty with name {name} is already exists!");
 
 		var faculty = new Faculty
@@ -34,19 +34,22 @@ public class FacultyService : IFacultyService
 
 	}
 
-	public async Task<List<Faculty>> GetAllFacultyAsync()
+	public async Task<IReadOnlyCollection<(long id, string name)>> GetAllFacultyAsync()
 	{
-		return await _db.Faculties.ToListAsync();
+		return (await _db.Faculties.ToListAsync())
+			.Select(x => (x.Id, x.Name))
+			.ToList()
+			.AsReadOnly();
 	}
 
 	public async Task<Faculty?> GetFacultyAsync(long facultyId)
 	{
-		return await _db.Faculties.FirstOrDefaultAsync(x => x != null && x.Id == facultyId);
+		return await _db.Faculties.FirstOrDefaultAsync(x => x.Id == facultyId);
 	}
 
 	public async Task RenameFacultyAsync(long facultyId, string name)
 	{
-		var faculty = await _db.Faculties.FirstOrDefaultAsync(x => x != null && x.Id == facultyId);
+		var faculty = await _db.Faculties.FirstOrDefaultAsync(x => x.Id == facultyId);
 
 		if (faculty is null)
 			throw new Exception("Faculty is not exists!");
@@ -57,7 +60,7 @@ public class FacultyService : IFacultyService
 
 	public async Task DeleteFacultyAsync(long facultyId)
 	{
-		if (await _db.Faculties.AnyAsync(x => x != null && x.Id == facultyId))
+		if (await _db.Faculties.AnyAsync(x => x.Id == facultyId))
 			throw new Exception("Faculty is not exists!");
 
 		_db.Faculties.Remove(new Faculty { Id = facultyId });
