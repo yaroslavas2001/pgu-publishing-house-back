@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using PublishingHouse.Interfaces;
 using PublishingHouse.Interfaces.Model;
-using PublishingHouse.Models;
 using PublishingHouse.Models.Faculty;
 
 namespace PublishingHouse.Controller;
@@ -10,7 +9,7 @@ namespace PublishingHouse.Controller;
 /// <summary>
 /// Факультеты
 /// </summary>
-[Route("/[Controller]/[action]")]
+[Route("/[Controller]")]
 [Produces("application/json")]
 public class FacultyController : Microsoft.AspNetCore.Mvc.Controller
 {
@@ -27,7 +26,7 @@ public class FacultyController : Microsoft.AspNetCore.Mvc.Controller
 	/// <param name="model"></param>
 	/// <returns></returns>
 	[HttpPost]
-	//[Route($"/Faculty/{nameof(Add)}")]
+	[Route($"{nameof(Add)}")]
 	[ProducesResponseType(200, Type = typeof(BaseResponse<long>))]
 	[ProducesResponseType(400, Type = typeof(BaseResponse))]
 	//[Authorize]
@@ -42,7 +41,7 @@ public class FacultyController : Microsoft.AspNetCore.Mvc.Controller
 	/// </summary>
 	/// <returns></returns>
 	[HttpGet]
-	[Route($"/Faculty/{nameof(GetAll)}")]
+	[Route($"{nameof(GetAll)}")]
 	[ProducesResponseType(200, Type = typeof(BaseResponse<IReadOnlyCollection<(long Id, string Name)>>))]
 	[ProducesResponseType(400, Type = typeof(BaseResponse))]
 	public async Task<BaseResponse<IReadOnlyCollection<(long Id, string Name)>>> GetAll()
@@ -56,7 +55,7 @@ public class FacultyController : Microsoft.AspNetCore.Mvc.Controller
 	/// </summary>
 	/// <returns></returns>
 	[HttpGet]
-	[Route($"/Faculty/{nameof(Get)}")]
+	[Route($"{nameof(Get)}")]
 	[ProducesResponseType(200, Type = typeof(BaseResponse<(long Id, string Name)>))]
 	[ProducesResponseType(400, Type = typeof(BaseResponse))]
 	public async Task<BaseResponse<(long Id, string Name)>> Get([FromQuery] long id)
@@ -70,7 +69,7 @@ public class FacultyController : Microsoft.AspNetCore.Mvc.Controller
 	/// </summary>
 	/// <returns></returns>
 	[HttpPatch]
-	[Route($"/Faculty/{nameof(Rename)}")]
+	[Route($"{nameof(Rename)}")]
 	[ProducesResponseType(200, Type = typeof(BaseResponse))]
 	[ProducesResponseType(400, Type = typeof(BaseResponse))]
 	[Authorize]
@@ -85,7 +84,7 @@ public class FacultyController : Microsoft.AspNetCore.Mvc.Controller
 	/// </summary>
 	/// <returns></returns>
 	[HttpDelete]
-	[Route($"/Faculty/{nameof(Delete)}")]
+	[Route($"{nameof(Delete)}")]
 	[ProducesResponseType(200, Type = typeof(BaseResponse))]
 	[ProducesResponseType(400, Type = typeof(BaseResponse))]
 	[Authorize]

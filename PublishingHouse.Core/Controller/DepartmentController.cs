@@ -28,7 +28,7 @@ public class DepartmaneController : Microsoft.AspNetCore.Mvc.Controller
 	/// <param name="request"></param>
 	/// <returns></returns>
 	[HttpPost]
-	[Route($"/Department/{nameof(Add)}")]
+	[Route($"{nameof(Add)}")]
 	[ProducesResponseType(200, Type = typeof(BaseResponse<long>))]
 	[ProducesResponseType(400, Type = typeof(BaseResponse))]
 	[Authorize]
@@ -43,7 +43,7 @@ public class DepartmaneController : Microsoft.AspNetCore.Mvc.Controller
 	/// </summary>
 	/// <returns></returns>
 	[HttpGet]
-	[Route($"/Department/{nameof(GetAll)}")]
+	[Route($"{nameof(GetAll)}")]
 	[ProducesResponseType(200, Type = typeof(BaseResponse<IReadOnlyCollection<DepartmentModel>>))]
 	[ProducesResponseType(400, Type = typeof(BaseResponse))]
 	public async Task<BaseResponse<IReadOnlyCollection<DepartmentModel>>> GetAll([FromQuery] long? facultyId)
@@ -58,7 +58,7 @@ public class DepartmaneController : Microsoft.AspNetCore.Mvc.Controller
 	/// </summary>
 	/// <returns></returns>
 	[HttpPatch]
-	[Route($"/Department/{nameof(Rename)}")]
+	[Route($"{nameof(Rename)}")]
 	[ProducesResponseType(200, Type = typeof(BaseResponse))]
 	[ProducesResponseType(400, Type = typeof(BaseResponse))]
 	[Authorize]
@@ -73,7 +73,7 @@ public class DepartmaneController : Microsoft.AspNetCore.Mvc.Controller
 	/// </summary>
 	/// <returns></returns>
 	[HttpDelete]
-	[Route($"/Department/{nameof(Delete)}")]
+	[Route($"{nameof(Delete)}")]
 	[ProducesResponseType(200, Type = typeof(BaseResponse))]
 	[ProducesResponseType(400, Type = typeof(BaseResponse))]
 	[Authorize]
