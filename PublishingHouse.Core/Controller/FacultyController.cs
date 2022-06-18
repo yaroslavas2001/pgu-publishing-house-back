@@ -7,7 +7,7 @@ using PublishingHouse.Models.Faculty;
 namespace PublishingHouse.Controller;
 
 /// <summary>
-/// Факультеты
+///     Факультеты
 /// </summary>
 [Route("/[Controller]")]
 [Produces("application/json")]
@@ -21,7 +21,7 @@ public class FacultyController : Microsoft.AspNetCore.Mvc.Controller
 	}
 
 	/// <summary>
-	/// Добавить факультет
+	///     Добавить факультет
 	/// </summary>
 	/// <param name="model"></param>
 	/// <returns></returns>
@@ -37,7 +37,7 @@ public class FacultyController : Microsoft.AspNetCore.Mvc.Controller
 	}
 
 	/// <summary>
-	/// Получить список всех факультетов
+	///     Получить список всех факультетов
 	/// </summary>
 	/// <returns></returns>
 	[HttpGet]
@@ -51,7 +51,7 @@ public class FacultyController : Microsoft.AspNetCore.Mvc.Controller
 	}
 
 	/// <summary>
-	/// Получить факультет
+	///     Получить факультет
 	/// </summary>
 	/// <returns></returns>
 	[HttpGet]
@@ -65,7 +65,7 @@ public class FacultyController : Microsoft.AspNetCore.Mvc.Controller
 	}
 
 	/// <summary>
-	/// Переименовать факультет
+	///     Переименовать факультет
 	/// </summary>
 	/// <returns></returns>
 	[HttpPatch]
@@ -80,7 +80,7 @@ public class FacultyController : Microsoft.AspNetCore.Mvc.Controller
 	}
 
 	/// <summary>
-	/// Удалить факультет
+	///     Удалить факультет
 	/// </summary>
 	/// <returns></returns>
 	[HttpDelete]

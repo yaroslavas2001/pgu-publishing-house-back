@@ -10,7 +10,7 @@ namespace PublishingHouse.Controller;
 public class FileController : Microsoft.AspNetCore.Mvc.Controller
 {
 	/// <summary>
-	///		Загрузить файл и прикрепить его к публикации
+	///     Загрузить файл и прикрепить его к публикации
 	/// </summary>
 	/// <param name="service"></param>
 	/// <param name="model">Модель файла</param>
@@ -19,10 +19,10 @@ public class FileController : Microsoft.AspNetCore.Mvc.Controller
 	[Route($"{nameof(UploadFileForPublication)}")]
 	[ProducesResponseType(200, Type = typeof(BaseResponse))]
 	[ProducesResponseType(400, Type = typeof(BaseResponse))]
-	public async Task<BaseResponse<string>> UploadFileForPublication([FromServices] IFileService service, [FromBody] AddFileModel model)
+	public async Task<BaseResponse<string>> UploadFileForPublication([FromServices] IFileService service,
+		[FromBody] AddFileModel model)
 	{
 		var result = await service.AddFileAsync(model);
 		return new BaseResponse<string>(result);
 	}
-
 }

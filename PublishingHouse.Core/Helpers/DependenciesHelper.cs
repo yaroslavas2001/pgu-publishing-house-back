@@ -8,6 +8,7 @@ using PublishingHouse.Interfaces;
 using PublishingHouse.Interfaces.Constants;
 using PublishingHouse.Services;
 using PublishingHouse.Services.Infrastruct;
+using Unchase.Swashbuckle.AspNetCore.Extensions.Extensions;
 
 namespace PublishingHouse.Helpers;
 
@@ -40,7 +41,7 @@ internal static class DependenciesHelper
 		serviceCollection.AddDbContext<DataContext>(options =>
 			options.UseSqlServer(configuration.GetConnectionString("Default"),
 				sqliteDbContextOptionsBuilder =>
-					sqliteDbContextOptionsBuilder.MigrationsAssembly($"{nameof(PublishingHouse)}.{nameof(PublishingHouse.Data)}")));
+					sqliteDbContextOptionsBuilder.MigrationsAssembly($"{nameof(PublishingHouse)}.{nameof(Data)}")));
 
 		return serviceCollection;
 	}
@@ -98,7 +99,7 @@ internal static class DependenciesHelper
 				throw new Exception(
 					$"SwaggerExtensions: Xml comments file does not exist! ({commentsFile})");
 			options.IncludeXmlComments(commentsFile);
-			//options.SchemaFilter<EnumTypesSchemaFilter>(commentsFile);
+			options.AddEnumsWithValuesFixFilters();
 			options.UseOneOfForPolymorphism();
 			options.UseAllOfForInheritance();
 
