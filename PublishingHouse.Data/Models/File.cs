@@ -17,4 +17,8 @@ public class File
 	public Publication Publication { get; set; }
 
 	public bool IsVisibleForReviewers { get; set; } = false;
+
+	public long? ReviewId { get; set; }
+
+	public Review Review { get; set; }
 }

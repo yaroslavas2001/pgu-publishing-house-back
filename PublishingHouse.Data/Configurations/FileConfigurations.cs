@@ -13,5 +13,11 @@ public class FileConfigurations : IEntityTypeConfiguration<File>
 			.HasOne(x => x.Publication)
 			.WithMany(x => x.Files)
 			.HasForeignKey(x => x.PublicationId);
+
+		builder
+			.HasOne(x => x.Review)
+			.WithMany(x => x.Files)
+			.HasForeignKey(x => x.ReviewId)
+			.IsRequired(false);
 	}
 }

@@ -27,4 +27,6 @@ public class Publication
 	public Reviewer Reviewer { get; set; }
 
 	public long? ReviewerId { get; set; }
+
+	public List<Review> Reviews { get; set; }
 }
