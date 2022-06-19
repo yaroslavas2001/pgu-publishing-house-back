@@ -5,6 +5,8 @@ namespace PublishingHouse.Interfaces.Model.Publication;
 
 public class GetPublicationsRequest : IPaginationRequest
 {
+	public string Search { get; set; }
+
 	public long? PublicationId { get; set; }
 
 	public EnumPublicationStatus? Status { get; set; }

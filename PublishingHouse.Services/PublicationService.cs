@@ -52,6 +52,11 @@ public class PublicationService : IPublicationService
 		if (request.UserId.HasValue)
 			query = query.Where(x => x.UserId == request.UserId);
 
+		if (!string.IsNullOrWhiteSpace(request.Search))
+			query = query.Where(x =>
+				x.Name.ToLower().Contains(request.Search.ToLower())
+				|| x.Tags.ToLower().Contains(request.Search.ToLower()));
+
 		return await query.GetPageAsync<GetPublicationResponse, Publication, PublicationModel>(request,
 			x => new PublicationModel
 			{
