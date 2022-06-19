@@ -1,12 +1,12 @@
 ﻿namespace PublishingHouse.Models.Faculty;
 
 /// <summary>
-/// Запрос добавления факультета
+///     Запрос добавления факультета
 /// </summary>
 public class AddFacultyRequest
 {
 	/// <summary>
-	///		Имя факультета
+	///     Имя факультета
 	/// </summary>
 	public string Name { get; set; }
 }

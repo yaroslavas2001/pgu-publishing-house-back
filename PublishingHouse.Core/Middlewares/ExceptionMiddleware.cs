@@ -3,7 +3,7 @@
 namespace PublishingHouse.Middlewares;
 
 /// <summary>
-/// Промежуточное ПО для обработки исключений
+///     Промежуточное ПО для обработки исключений
 /// </summary>
 public class ExceptionMiddleware
 {
@@ -11,11 +11,11 @@ public class ExceptionMiddleware
 
 	public ExceptionMiddleware(RequestDelegate next)
 	{
-		this._next = next;
+		_next = next;
 	}
 
 	/// <summary>
-	/// Вызов
+	///     Вызов
 	/// </summary>
 	/// <param name="context"></param>
 	public async Task InvokeAsync(HttpContext context)

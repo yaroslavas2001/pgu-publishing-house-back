@@ -25,6 +25,8 @@ public sealed class DataContext : DbContext
 
 	public DbSet<Reviewer> Reviewers { get; set; }
 
+	public DbSet<Review> Reviews { get; set; }
+
 	public DbSet<User> Users { get; set; }
 
 	public DbSet<MailToken> MailToken { get; set; }

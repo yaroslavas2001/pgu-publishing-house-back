@@ -8,7 +8,7 @@ using PublishingHouse.Models.Department;
 namespace PublishingHouse.Controller;
 
 /// <summary>
-/// Кафедры
+///     Кафедры
 /// </summary>
 [Route("/Department")]
 [Produces("application/json")]
@@ -23,12 +23,12 @@ public class DepartmaneController : Microsoft.AspNetCore.Mvc.Controller
 
 
 	/// <summary>
-	/// Добавить кафедру
+	///     Добавить кафедру
 	/// </summary>
 	/// <param name="request"></param>
 	/// <returns></returns>
 	[HttpPost]
-	[Route($"/Department/{nameof(Add)}")]
+	[Route($"{nameof(Add)}")]
 	[ProducesResponseType(200, Type = typeof(BaseResponse<long>))]
 	[ProducesResponseType(400, Type = typeof(BaseResponse))]
 	[Authorize]
@@ -39,11 +39,11 @@ public class DepartmaneController : Microsoft.AspNetCore.Mvc.Controller
 	}
 
 	/// <summary>
-	/// Получить список всех кафедр
+	///     Получить список всех кафедр
 	/// </summary>
 	/// <returns></returns>
 	[HttpGet]
-	[Route($"/Department/{nameof(GetAll)}")]
+	[Route($"{nameof(GetAll)}")]
 	[ProducesResponseType(200, Type = typeof(BaseResponse<IReadOnlyCollection<DepartmentModel>>))]
 	[ProducesResponseType(400, Type = typeof(BaseResponse))]
 	public async Task<BaseResponse<IReadOnlyCollection<DepartmentModel>>> GetAll([FromQuery] long? facultyId)
@@ -52,13 +52,13 @@ public class DepartmaneController : Microsoft.AspNetCore.Mvc.Controller
 		return new BaseResponse<IReadOnlyCollection<DepartmentModel>>(result);
 	}
 
-	
+
 	/// <summary>
-	/// Переименовать Кафедру
+	///     Переименовать Кафедру
 	/// </summary>
 	/// <returns></returns>
 	[HttpPatch]
-	[Route($"/Department/{nameof(Rename)}")]
+	[Route($"{nameof(Rename)}")]
 	[ProducesResponseType(200, Type = typeof(BaseResponse))]
 	[ProducesResponseType(400, Type = typeof(BaseResponse))]
 	[Authorize]
@@ -69,11 +69,11 @@ public class DepartmaneController : Microsoft.AspNetCore.Mvc.Controller
 	}
 
 	/// <summary>
-	/// Удалить кафедру
+	///     Удалить кафедру
 	/// </summary>
 	/// <returns></returns>
 	[HttpDelete]
-	[Route($"/Department/{nameof(Delete)}")]
+	[Route($"{nameof(Delete)}")]
 	[ProducesResponseType(200, Type = typeof(BaseResponse))]
 	[ProducesResponseType(400, Type = typeof(BaseResponse))]
 	[Authorize]
@@ -82,5 +82,4 @@ public class DepartmaneController : Microsoft.AspNetCore.Mvc.Controller
 		await _departmentService.DeleteDepartment(id);
 		return new BaseResponse();
 	}
-
 }

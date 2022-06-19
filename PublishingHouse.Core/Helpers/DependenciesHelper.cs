@@ -7,6 +7,8 @@ using PublishingHouse.Data;
 using PublishingHouse.Interfaces;
 using PublishingHouse.Interfaces.Constants;
 using PublishingHouse.Services;
+using PublishingHouse.Services.Infrastruct;
+using Unchase.Swashbuckle.AspNetCore.Extensions.Extensions;
 
 namespace PublishingHouse.Helpers;
 
@@ -39,7 +41,7 @@ internal static class DependenciesHelper
 		serviceCollection.AddDbContext<DataContext>(options =>
 			options.UseSqlServer(configuration.GetConnectionString("Default"),
 				sqliteDbContextOptionsBuilder =>
-					sqliteDbContextOptionsBuilder.MigrationsAssembly($"{nameof(PublishingHouse)}.{nameof(PublishingHouse.Data)}")));
+					sqliteDbContextOptionsBuilder.MigrationsAssembly($"{nameof(PublishingHouse)}.{nameof(Data)}")));
 
 		return serviceCollection;
 	}
@@ -50,21 +52,22 @@ internal static class DependenciesHelper
 		service.AddScoped<IAuthorService, AuthorService>();
 		service.AddScoped<IFacultyService, FacultyService>();
 		service.AddScoped<IDepartmentService, DepartmentService>();
+		service.AddScoped<IFileService, FileService>();
 
 		return service;
 	}
 
 	private static IServiceCollection AddCustomSwagger(this IServiceCollection serviceCollection)
 	{
-		serviceCollection.AddSwaggerGen(swaggerGenOptions =>
+		serviceCollection.AddSwaggerGen(options =>
 		{
-			swaggerGenOptions.SwaggerDoc("v1", new OpenApiInfo
+			options.SwaggerDoc("v1", new OpenApiInfo
 			{
 				Title = "v1",
 				Version = Assembly.GetEntryAssembly()?.GetName().Version?.ToString()
 			});
 
-			swaggerGenOptions.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+			options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
 			{
 				Description = "JWT Authorization header using the Bearer scheme.",
 				Name = "Authorization",
@@ -74,7 +77,7 @@ internal static class DependenciesHelper
 				BearerFormat = "JWT"
 			});
 
-			swaggerGenOptions.AddSecurityRequirement(new OpenApiSecurityRequirement
+			options.AddSecurityRequirement(new OpenApiSecurityRequirement
 			{
 				{
 					new OpenApiSecurityScheme
@@ -85,19 +88,20 @@ internal static class DependenciesHelper
 				}
 			});
 
-			swaggerGenOptions.DescribeAllParametersInCamelCase();
-			swaggerGenOptions.UseOneOfForPolymorphism();
-			swaggerGenOptions.UseAllOfForInheritance();
-			swaggerGenOptions.SelectDiscriminatorNameUsing(_ => "TypeName");
-			swaggerGenOptions.SelectDiscriminatorValueUsing(subType => subType.Name);
+			options.DescribeAllParametersInCamelCase();
+			options.UseOneOfForPolymorphism();
+			options.UseAllOfForInheritance();
+			options.SelectDiscriminatorNameUsing(_ => "TypeName");
+			options.SelectDiscriminatorValueUsing(subType => subType.Name);
 			var commentsFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory,
 				$"{Assembly.GetEntryAssembly()?.GetName().Name}.xml");
 			if (!File.Exists(commentsFile))
 				throw new Exception(
 					$"SwaggerExtensions: Xml comments file does not exist! ({commentsFile})");
-			swaggerGenOptions.IncludeXmlComments(commentsFile);
-			swaggerGenOptions.UseOneOfForPolymorphism();
-			swaggerGenOptions.UseAllOfForInheritance();
+			options.IncludeXmlComments(commentsFile);
+			options.AddEnumsWithValuesFixFilters();
+			options.UseOneOfForPolymorphism();
+			options.UseAllOfForInheritance();
 
 			// Application specific swagger generation options that have been injected (nvm these)
 			//options?.Invoke(swaggerGenOptions);
