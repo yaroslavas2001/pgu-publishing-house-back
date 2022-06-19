@@ -40,7 +40,7 @@ public class AuthorController : Microsoft.AspNetCore.Mvc.Controller
 
 	[HttpGet]
 	[Route($"{nameof(Get)}")]
-	[ProducesResponseType(200, Type = typeof(BaseResponse<IReadOnlyCollection<AuthorShortModel>>))]
+	[ProducesResponseType(200, Type = typeof(BaseResponse<GetAuthorResponse>))]
 	[ProducesResponseType(400, Type = typeof(BaseResponse))]
 	public async Task<BaseResponse<GetAuthorResponse>> Get([FromQuery] GetAuthorsRequest request)
 	{

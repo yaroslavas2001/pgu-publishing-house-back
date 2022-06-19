@@ -1,7 +1,7 @@
 ﻿namespace PublishingHouse.Interfaces.Exstensions.Pagination;
 
 /// <summary>
-/// Интерфейс запроса постранички
+///     Интерфейс запроса постранички
 /// </summary>
 public interface IPaginationRequest
 {

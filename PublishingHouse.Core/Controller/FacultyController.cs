@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PublishingHouse.Interfaces;
+using PublishingHouse.Interfaces.Exstensions.Pagination;
 using PublishingHouse.Interfaces.Model;
+using PublishingHouse.Interfaces.Model.Faculty;
 using PublishingHouse.Models.Faculty;
 
 namespace PublishingHouse.Controller;
@@ -42,12 +44,12 @@ public class FacultyController : Microsoft.AspNetCore.Mvc.Controller
 	/// <returns></returns>
 	[HttpGet]
 	[Route($"{nameof(GetAll)}")]
-	[ProducesResponseType(200, Type = typeof(BaseResponse<IReadOnlyCollection<(long Id, string Name)>>))]
+	[ProducesResponseType(200, Type = typeof(BaseResponse<GetFacultyResponse>))]
 	[ProducesResponseType(400, Type = typeof(BaseResponse))]
-	public async Task<BaseResponse<IReadOnlyCollection<(long Id, string Name)>>> GetAll()
+	public async Task<BaseResponse<GetFacultyResponse>> GetAll([FromQuery] Page request)
 	{
-		var result = await _faculty.GetAllFacultyAsync();
-		return new BaseResponse<IReadOnlyCollection<(long Id, string Name)>>(result);
+		var result = await _faculty.GetAllFacultyAsync(new GetFacultyRequest {Page = request});
+		return new BaseResponse<GetFacultyResponse>(result);
 	}
 
 	/// <summary>

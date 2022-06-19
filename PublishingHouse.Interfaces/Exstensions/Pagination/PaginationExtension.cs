@@ -6,7 +6,7 @@ namespace PublishingHouse.Interfaces.Exstensions.Pagination;
 public static class PaginationExtension
 {
 	/// <summary>
-	/// Получить список постранично
+	///     Получить список постранично
 	/// </summary>
 	/// <typeparam name="TResModel">Результирующая модель типа IPaginationResponse</typeparam>
 	/// <typeparam name="TSource">Тип записей в таблице БД (Entity)</typeparam>
@@ -15,7 +15,8 @@ public static class PaginationExtension
 	/// <param name="request">Запрос постранички IPaginationRequest</param>
 	/// <param name="selector">Выражение селектора</param>
 	/// <returns></returns>
-	public static async Task<TResModel> GetPageAsync<TResModel, TSource, TResult>(this IQueryable<TSource> query, IPaginationRequest request, Expression<Func<TSource, TResult>> selector)
+	public static async Task<TResModel> GetPageAsync<TResModel, TSource, TResult>(this IQueryable<TSource> query,
+		IPaginationRequest request, Expression<Func<TSource, TResult>> selector)
 		where TResModel : IPaginationResponse<TResult>, new() where TResult : class
 	{
 		var count = await query.LongCountAsync();
@@ -33,7 +34,7 @@ public static class PaginationExtension
 	}
 
 	/// <summary>
-	/// Страница
+	///     Страница
 	/// </summary>
 	/// <typeparam name="TSource">Модель БД (Entity)</typeparam>
 	/// <param name="query">Запрос IQueryable</param>

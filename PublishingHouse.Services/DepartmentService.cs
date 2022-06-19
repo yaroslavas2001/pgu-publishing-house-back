@@ -2,6 +2,7 @@
 using PublishingHouse.Data;
 using PublishingHouse.Data.Models;
 using PublishingHouse.Interfaces;
+using PublishingHouse.Interfaces.Exstensions.Pagination;
 using PublishingHouse.Interfaces.Model.Departmanet;
 
 namespace PublishingHouse.Services;
@@ -32,22 +33,21 @@ public class DepartmentService : IDepartmentService
 		return department.Id;
 	}
 
-
-	public async Task<IReadOnlyCollection<DepartmentModel>> GetDepartments(long? facultyId = null)
+	public async Task<GetDepartmentsResponse> GetDepartments(GetDepartmentsRequest request)
 	{
-		var query = facultyId.HasValue
-			? _db.Departments.Where(x => x.FacultyId == facultyId)
+		var query = request.FacultyId.HasValue
+			? _db.Departments.Where(x => x.FacultyId == request.FacultyId)
 			: _db.Departments.AsQueryable();
 
-		var result = await query
-			.Select(x => new DepartmentModel
+		var result = await query.GetPageAsync<GetDepartmentsResponse, Department, DepartmentModel>(request, x =>
+			new DepartmentModel
 			{
 				Id = x.Id,
 				FacultyId = x.FacultyId,
 				DepartmentName = x.Name
-			}).ToListAsync();
+			});
 
-		return result.AsReadOnly();
+		return result;
 	}
 
 	public async Task RenameDepartment(long departmentId, string name)

@@ -9,6 +9,7 @@
     <ItemGroup>
       <Folder Include="Constants\" />
       <Folder Include="Model\Files\" />
+      <Folder Include="Model\Faculty\" />
     </ItemGroup>
 
     <ItemGroup>

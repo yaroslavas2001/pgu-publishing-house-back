@@ -19,7 +19,7 @@ public static class FileExtensions
 	}
 
 	/// <summary>
-	/// Gets whether the specified path is a valid absolute file path.
+	///     Gets whether the specified path is a valid absolute file path.
 	/// </summary>
 	/// <param name="path">Any path. OK if null or empty.</param>
 	public static bool IsValidPath(this string path)

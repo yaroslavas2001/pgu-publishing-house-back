@@ -2,6 +2,8 @@
 using PublishingHouse.Data;
 using PublishingHouse.Data.Models;
 using PublishingHouse.Interfaces;
+using PublishingHouse.Interfaces.Exstensions.Pagination;
+using PublishingHouse.Interfaces.Model.Faculty;
 
 namespace PublishingHouse.Services;
 
@@ -17,7 +19,7 @@ public class FacultyService : IFacultyService
 	public async Task<Faculty?> CreateFacultyAsync(string name)
 	{
 		if (string.IsNullOrWhiteSpace(name))
-			throw new ArgumentNullException(nameof(name), $"Incorrect faculty name!");
+			throw new ArgumentNullException(nameof(name), "Incorrect faculty name!");
 
 		if (await _db.Faculties.AnyAsync(x => x.Name == name))
 			throw new Exception($"Faculty with name {name} is already exists!");
@@ -31,15 +33,16 @@ public class FacultyService : IFacultyService
 		await _db.SaveChangesAsync();
 
 		return faculty;
-
 	}
 
-	public async Task<IReadOnlyCollection<(long id, string name)>> GetAllFacultyAsync()
+	public async Task<GetFacultyResponse> GetAllFacultyAsync(GetFacultyRequest request)
 	{
-		return (await _db.Faculties.ToListAsync())
-			.Select(x => (x.Id, x.Name))
-			.ToList()
-			.AsReadOnly();
+		return await _db.Faculties.GetPageAsync<GetFacultyResponse, Faculty, FacultyShortModel>(request, faculty =>
+			new FacultyShortModel
+			{
+				Id = faculty.Id,
+				Name = faculty.Name
+			});
 	}
 
 	public async Task<Faculty?> GetFacultyAsync(long facultyId)
@@ -63,7 +66,7 @@ public class FacultyService : IFacultyService
 		if (await _db.Faculties.AnyAsync(x => x.Id == facultyId))
 			throw new Exception("Faculty is not exists!");
 
-		_db.Faculties.Remove(new Faculty { Id = facultyId });
+		_db.Faculties.Remove(new Faculty {Id = facultyId});
 		await _db.SaveChangesAsync();
 	}
 }

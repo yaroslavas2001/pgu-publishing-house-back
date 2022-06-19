@@ -1,18 +1,17 @@
 ﻿namespace PublishingHouse.Interfaces.Exstensions.Pagination;
 
 /// <summary>
-///		Модель страницы
+///     Модель страницы
 /// </summary>
 public class Page
 {
-
 	/// <summary>
-	///		Пропустить
+	///     Пропустить
 	/// </summary>
 	public int? Skip { get; set; }
 
 	/// <summary>
-	///		Вытащить
+	///     Вытащить
 	/// </summary>
 	public int? Take { get; set; }
 }

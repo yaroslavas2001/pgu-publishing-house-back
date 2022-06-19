@@ -2,7 +2,7 @@
 
 namespace PublishingHouse.Interfaces.Model.Author;
 
-public class GetAuthorResponse:IPaginationResponse<AuthorModel>
+public class GetAuthorResponse : IPaginationResponse<AuthorModel>
 {
 	public Page Page { get; set; }
 

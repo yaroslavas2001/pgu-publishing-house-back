@@ -15,6 +15,6 @@ public static class AuthOptions
 
 	public static SymmetricSecurityKey GetSymmetricSecurityKey()
 	{
-		return new(Encoding.ASCII.GetBytes(KEY));
+		return new SymmetricSecurityKey(Encoding.ASCII.GetBytes(KEY));
 	}
 }

@@ -1,5 +1,4 @@
-﻿using PublishingHouse.Interfaces.Model;
-using PublishingHouse.Interfaces.Model.Author;
+﻿using PublishingHouse.Interfaces.Model.Author;
 
 namespace PublishingHouse.Interfaces;
 

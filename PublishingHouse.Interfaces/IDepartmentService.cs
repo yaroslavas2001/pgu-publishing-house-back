@@ -6,7 +6,7 @@ public interface IDepartmentService
 {
 	Task<long> AddDepartmentAsync(long facultyId, string name);
 
-	Task<IReadOnlyCollection<DepartmentModel>> GetDepartments(long? facultyId = null);
+	Task<GetDepartmentsResponse> GetDepartments(GetDepartmentsRequest request);
 
 	Task RenameDepartment(long departmentId, string name);
 

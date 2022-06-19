@@ -46,10 +46,10 @@ public class DepartmaneController : Microsoft.AspNetCore.Mvc.Controller
 	[Route($"{nameof(GetAll)}")]
 	[ProducesResponseType(200, Type = typeof(BaseResponse<IReadOnlyCollection<DepartmentModel>>))]
 	[ProducesResponseType(400, Type = typeof(BaseResponse))]
-	public async Task<BaseResponse<IReadOnlyCollection<DepartmentModel>>> GetAll([FromQuery] long? facultyId)
+	public async Task<BaseResponse<GetDepartmentsResponse>> GetAll([FromQuery] GetDepartmentsRequest request)
 	{
-		var result = await _departmentService.GetDepartments(facultyId);
-		return new BaseResponse<IReadOnlyCollection<DepartmentModel>>(result);
+		var result = await _departmentService.GetDepartments(request);
+		return new BaseResponse<GetDepartmentsResponse>(result);
 	}
 
 

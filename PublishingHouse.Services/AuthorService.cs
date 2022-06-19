@@ -3,7 +3,6 @@ using PublishingHouse.Data;
 using PublishingHouse.Data.Models;
 using PublishingHouse.Interfaces;
 using PublishingHouse.Interfaces.Exstensions.Pagination;
-using PublishingHouse.Interfaces.Model;
 using PublishingHouse.Interfaces.Model.Author;
 using PublishingHouse.StorageEnums;
 
@@ -32,9 +31,9 @@ public class AuthorService : IAuthorService
 
 		if (model.IsTeacher)
 		{
-			add.AcademicDegree = (EnumAcademicDegree)model.DegreeId;
+			add.AcademicDegree = (EnumAcademicDegree) model.DegreeId;
 			add.DepartmentId = model.DepartmentId;
-			add.EmployeerPosition = (EnumEmployeePosition)model.PositionId;
+			add.EmployeerPosition = (EnumEmployeePosition) model.PositionId;
 		}
 		else
 		{
@@ -67,7 +66,7 @@ public class AuthorService : IAuthorService
 				Id = x.Id,
 				FirstName = x.FirstName,
 				SecondName = x.LastName,
-				SureName = x.SureName 
+				SureName = x.SureName
 			});
 	}
 
@@ -77,7 +76,7 @@ public class AuthorService : IAuthorService
 		var query = _db.Authors.AsQueryable();
 
 		if (request.AuthorId.HasValue)
-			query = query.Where(x => x.Id  == request.AuthorId);
+			query = query.Where(x => x.Id == request.AuthorId);
 
 		return await query.GetPageAsync<GetAuthorResponse, Author, AuthorModel>(request, x => new AuthorModel
 		{
@@ -128,9 +127,9 @@ public class AuthorService : IAuthorService
 			throw new Exception($"Author id = {id} is not exists!");
 
 		if (await _db.PublicationsAuthors.AnyAsync(x => x.AuthorId == id))
-			throw new Exception($"Author with publications can't be deleted!");
+			throw new Exception("Author with publications can't be deleted!");
 
-		_db.Authors.Remove(new Author { Id = id });
+		_db.Authors.Remove(new Author {Id = id});
 		await _db.SaveChangesAsync();
 	}
 }
