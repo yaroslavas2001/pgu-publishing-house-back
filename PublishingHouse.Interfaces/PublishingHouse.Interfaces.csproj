@@ -11,6 +11,7 @@
       <Folder Include="Model\Files\" />
       <Folder Include="Model\Faculty\" />
       <Folder Include="Model\Publication\" />
+      <Folder Include="Model\Reviewer\" />
     </ItemGroup>
 
     <ItemGroup>

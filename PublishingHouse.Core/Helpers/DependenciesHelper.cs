@@ -55,6 +55,8 @@ internal static class DependenciesHelper
 		service.AddScoped<IFileService, FileService>();
 		service.AddScoped<IPublicationService, PublicationService>();
 		service.AddScoped<IPublicationAuthorService, PublicationAuthorService>();
+		service.AddScoped<IReviewsService, ReviewsService>();
+		service.AddScoped<IReviewersService, ReviewersService>();
 
 		return service;
 	}

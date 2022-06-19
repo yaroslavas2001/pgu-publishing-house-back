@@ -25,7 +25,7 @@ public class PublicationAuthorService : IPublicationAuthorService
 		if (!await _db.PublicationsAuthors.AnyAsync(x => x.AuthorId == authorId && x.PublicationId == publicationId))
 		{
 			await _db.PublicationsAuthors.AddAsync(new PublicationAuthors
-			{ AuthorId = authorId, PublicationId = publicationId });
+				{AuthorId = authorId, PublicationId = publicationId});
 
 			await _db.SaveChangesAsync();
 		}
@@ -55,5 +55,4 @@ public class PublicationAuthorService : IPublicationAuthorService
 			await _db.SaveChangesAsync();
 		}
 	}
-
 }
