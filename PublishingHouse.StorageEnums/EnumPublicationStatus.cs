@@ -6,22 +6,37 @@
 public enum EnumPublicationStatus
 {
 	/// <summary>
-	/// Черновик
+	/// Новый материал
 	/// </summary>
 	Draft = 0,
 
 	/// <summary>
-	/// Опубликовано
+	/// Возвращено на доработку
 	/// </summary>
-	Published = 1,
+	Returned = 1,
 
 	/// <summary>
-	/// На проверке
+	/// На проверке у рецензента
 	/// </summary>
 	Check = 2,
 
 	/// <summary>
-	/// На исправление
+	/// На проверке у издательства
 	/// </summary>
-	Rework = 3
+	ReworkPublishing = 3,
+
+	/// <summary>
+	/// На печать
+	/// </summary>
+	ToPrint = 4,
+
+	/// <summary>
+	/// Не рекомендовано к печати
+	/// </summary>
+	NotRecommendedForPrinting = 5,
+
+	/// <summary>
+	/// На архивацию
+	/// </summary>
+	ForArchiving = 6,
 }

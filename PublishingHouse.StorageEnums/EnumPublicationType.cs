@@ -18,5 +18,10 @@ public enum EnumPublicationType
 	/// <summary>
 	/// Книга
 	/// </summary>
-	Book = 3
+	Book = 3,
+
+	/// <summary>
+	/// Бланк
+	/// </summary>
+	Blank = 4
 }
