@@ -18,7 +18,7 @@ public class AuthorController : Microsoft.AspNetCore.Mvc.Controller
 	}
 
 	[HttpPost]
-	[Authorize]
+	//[Authorize]
 	[Route($"{nameof(Add)}")]
 	[ProducesResponseType(200, Type = typeof(BaseResponse<AuthorShortModel>))]
 	[ProducesResponseType(400, Type = typeof(BaseResponse))]
