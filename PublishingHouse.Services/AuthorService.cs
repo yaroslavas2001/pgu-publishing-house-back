@@ -23,7 +23,7 @@ public class AuthorService : IAuthorService
 		{
 			Email = model.Email,
 			Contacts = model.Contacts,
-			SureName = model.FatherName,
+			SureName = model.SureName,
 			FirstName = model.FirstName,
 			IsTeacher = model.IsTeacher,
 			LastName = model.LastName
