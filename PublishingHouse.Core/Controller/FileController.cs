@@ -27,7 +27,7 @@ public class FileController : Microsoft.AspNetCore.Mvc.Controller
 	}
 
 	/// <summary>
-	/// Получить файлы публикации
+	///     Получить файлы публикации
 	/// </summary>
 	/// <param name="publicationId"></param>
 	/// <param name="isReviewer"></param>

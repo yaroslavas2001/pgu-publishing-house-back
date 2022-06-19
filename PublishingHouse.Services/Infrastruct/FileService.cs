@@ -46,7 +46,8 @@ public class FileService : IFileService
 		return file.Url;
 	}
 
-	public async Task<IReadOnlyCollection<PublicationFileModel>> GetPublicationFilesAsync(long publicationId, bool isReviewer)
+	public async Task<IReadOnlyCollection<PublicationFileModel>> GetPublicationFilesAsync(long publicationId,
+		bool isReviewer)
 	{
 		if (await _db.Publications.AllAsync(x => x.Id != publicationId))
 			throw new Exception($"Publication id = {publicationId} is not exists!");
@@ -59,10 +60,10 @@ public class FileService : IFileService
 			.Where(x => x.PublicationId == publicationId && x.IsVisibleForReviewers)
 			.Select(x => new PublicationFileModel
 			{
-				Name =  x.Name,
-				Type =  x.Type,
-				Url=x.Url,
-				ReviewId =x.ReviewId
+				Name = x.Name,
+				Type = x.Type,
+				Url = x.Url,
+				ReviewId = x.ReviewId
 			}).ToArrayAsync();
 
 		return files;
