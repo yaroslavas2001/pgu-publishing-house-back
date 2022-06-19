@@ -25,4 +25,21 @@ public class FileController : Microsoft.AspNetCore.Mvc.Controller
 		var result = await service.AddFileAsync(model);
 		return new BaseResponse<string>(result);
 	}
+
+	/// <summary>
+	/// Получить файлы публикации
+	/// </summary>
+	/// <param name="publicationId"></param>
+	/// <param name="isReviewer"></param>
+	/// <returns></returns>
+	[HttpGet]
+	[Route($"{nameof(Get)}")]
+	[ProducesResponseType(200, Type = typeof(BaseResponse<IReadOnlyCollection<PublicationFileModel>>))]
+	[ProducesResponseType(400, Type = typeof(BaseResponse))]
+	public async Task<BaseResponse<IReadOnlyCollection<PublicationFileModel>>> Get([FromServices] IFileService service,
+		[FromQuery] long publicationId, [FromQuery] bool isReviewer)
+	{
+		var files = await service.GetPublicationFilesAsync(publicationId, isReviewer);
+		return new BaseResponse<IReadOnlyCollection<PublicationFileModel>>(files);
+	}
 }

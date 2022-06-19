@@ -1,4 +1,5 @@
-﻿using PublishingHouse.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using PublishingHouse.Data;
 using PublishingHouse.Interfaces;
 using PublishingHouse.Interfaces.Exstensions;
 using PublishingHouse.Interfaces.Model.Files;
@@ -43,5 +44,27 @@ public class FileService : IFileService
 		await _db.SaveChangesAsync();
 
 		return file.Url;
+	}
+
+	public async Task<IReadOnlyCollection<PublicationFileModel>> GetPublicationFilesAsync(long publicationId, bool isReviewer)
+	{
+		if (await _db.Publications.AllAsync(x => x.Id != publicationId))
+			throw new Exception($"Publication id = {publicationId} is not exists!");
+
+		var query = _db.Files.AsQueryable();
+		if (isReviewer)
+			query = query.Where(x => x.IsVisibleForReviewers == true);
+
+		var files = await query
+			.Where(x => x.PublicationId == publicationId && x.IsVisibleForReviewers)
+			.Select(x => new PublicationFileModel
+			{
+				Name =  x.Name,
+				Type =  x.Type,
+				Url=x.Url,
+				ReviewId =x.ReviewId
+			}).ToArrayAsync();
+
+		return files;
 	}
 }
