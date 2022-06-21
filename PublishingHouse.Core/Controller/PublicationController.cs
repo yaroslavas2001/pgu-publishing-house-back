@@ -35,7 +35,7 @@ public class PublicationController : Microsoft.AspNetCore.Mvc.Controller
 	}
 
 	/// <summary>
-	///     Добавить публикацию
+	///     Получить все публикации
 	/// </summary>
 	/// <param name="model"></param>
 	/// <returns></returns>

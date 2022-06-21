@@ -47,7 +47,7 @@ public class FacultyService : IFacultyService
 
 	public async Task<Faculty?> GetFacultyAsync(long facultyId)
 	{
-		return await _db.Faculties.FirstOrDefaultAsync(x => x.Id == facultyId);
+		return await _db.Faculties.FirstOrDefaultAsync(x => x.Id == facultyId) ?? throw new Exception($"Faculty {facultyId} is not found!");
 	}
 
 	public async Task RenameFacultyAsync(long facultyId, string name)

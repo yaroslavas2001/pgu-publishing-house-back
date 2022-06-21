@@ -19,7 +19,7 @@ public class AuthorService : IAuthorService
 
 	public async Task<AuthorShortModel> Add(AuthorAddModel model)
 	{
-		var add = new Author
+		var author = new Author
 		{
 			Email = model.Email,
 			Contacts = model.Contacts,
@@ -31,26 +31,26 @@ public class AuthorService : IAuthorService
 
 		if (model.IsTeacher)
 		{
-			add.AcademicDegree = (EnumAcademicDegree) model.DegreeId;
-			add.DepartmentId = model.DepartmentId;
-			add.EmployeerPosition = (EnumEmployeePosition) model.PositionId;
+			author.AcademicDegree = model.DegreeId;
+			author.DepartmentId = model.DepartmentId;
+			author.EmployeerPosition = model.PositionId;
 		}
 		else
 		{
-			add.DepartmentId = null;
-			add.EmployeerPosition = null;
-			add.AcademicDegree = null;
+			author.DepartmentId = null;
+			author.EmployeerPosition = null;
+			author.AcademicDegree = null;
 		}
 
-		await _db.AddAsync(add);
+		await _db.AddAsync(author);
 		await _db.SaveChangesAsync();
 
 		return new AuthorShortModel
 		{
-			SureName = add.SureName,
-			FirstName = add.FirstName,
-			Id = add.Id,
-			SecondName = add.LastName
+			SureName = author.SureName,
+			FirstName = author.FirstName,
+			Id = author.Id,
+			SecondName = author.LastName
 		};
 	}
 
@@ -71,7 +71,7 @@ public class AuthorService : IAuthorService
 	}
 
 
-	public async Task<GetAuthorResponse> GetAuthorsAsync(GetAuthorsRequest request) //todo PAGINATION
+	public async Task<GetAuthorResponse> GetAuthorsAsync(GetAuthorsRequest request)
 	{
 		var query = _db.Authors.AsQueryable();
 

@@ -18,7 +18,7 @@ public class Author
 
 	public bool IsTeacher { get; set; }
 
-	public Department Department { get; set; }
+	public Department? Department { get; set; }
 
 	public long? DepartmentId { get; set; }
 
@@ -26,9 +26,9 @@ public class Author
 
 	public EnumAcademicDegree? AcademicDegree { get; set; }
 
-	public string NonStuffPosition { get; set; }
+	public string? NonStuffPosition { get; set; }
 
-	public string NonStuffWorkPlace { get; set; }
+	public string? NonStuffWorkPlace { get; set; }
 
-	public List<PublicationAuthors> Publications { get; set; }
+	public List<PublicationAuthors>? Publications { get; set; }
 }

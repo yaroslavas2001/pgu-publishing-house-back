@@ -14,11 +14,11 @@ public class File
 
 	public long PublicationId { get; set; }
 
-	public Publication Publication { get; set; }
+	public Publication Publication { get; set; } = null!;
 
 	public bool IsVisibleForReviewers { get; set; } = false;
 
 	public long? ReviewId { get; set; }
 
-	public Review Review { get; set; }
+	public Review Review { get; set; } = null!;
 }
