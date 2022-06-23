@@ -4,7 +4,6 @@ using PublishingHouse.Data.Models;
 using PublishingHouse.Interfaces;
 using PublishingHouse.Interfaces.Exstensions.Pagination;
 using PublishingHouse.Interfaces.Model.Author;
-using PublishingHouse.StorageEnums;
 
 namespace PublishingHouse.Services;
 
@@ -19,6 +18,8 @@ public class AuthorService : IAuthorService
 
 	public async Task<AuthorShortModel> Add(AuthorAddModel model)
 	{
+		var isTeacher = model.IsTeacher;
+
 		var author = new Author
 		{
 			Email = model.Email,
@@ -26,21 +27,13 @@ public class AuthorService : IAuthorService
 			SureName = model.SureName,
 			FirstName = model.FirstName,
 			IsTeacher = model.IsTeacher,
-			LastName = model.LastName
+			LastName = model.LastName,
+			AcademicDegree = isTeacher ? model.DegreeId : null,
+			DepartmentId = isTeacher ? model.DepartmentId : null,
+			EmployeerPosition = isTeacher ? model.PositionId : null,
+			NonStuffPosition = !isTeacher ? model.NonStuffPosition : null,
+			NonStuffWorkPlace = !isTeacher ? model.NonStuffWorkPlace : null
 		};
-
-		if (model.IsTeacher)
-		{
-			author.AcademicDegree = model.DegreeId;
-			author.DepartmentId = model.DepartmentId;
-			author.EmployeerPosition = model.PositionId;
-		}
-		else
-		{
-			author.DepartmentId = null;
-			author.EmployeerPosition = null;
-			author.AcademicDegree = null;
-		}
 
 		await _db.AddAsync(author);
 		await _db.SaveChangesAsync();
@@ -70,7 +63,6 @@ public class AuthorService : IAuthorService
 			});
 	}
 
-
 	public async Task<GetAuthorResponse> GetAuthorsAsync(GetAuthorsRequest request)
 	{
 		var query = _db.Authors.AsQueryable();
@@ -87,7 +79,7 @@ public class AuthorService : IAuthorService
 			DepartmentId = x.DepartmentId,
 			Contacts = x.Contacts,
 			IsTeacher = x.IsTeacher,
-			EmployeerPosition = x.EmployeerPosition,
+			EmployerPosition = x.EmployeerPosition,
 			AcademicDegree = x.AcademicDegree,
 			NonStuffPosition = x.NonStuffPosition,
 			NonStuffWorkPlace = x.NonStuffWorkPlace
@@ -129,7 +121,7 @@ public class AuthorService : IAuthorService
 		if (await _db.PublicationsAuthors.AnyAsync(x => x.AuthorId == id))
 			throw new Exception("Author with publications can't be deleted!");
 
-		_db.Authors.Remove(new Author {Id = id});
+		_db.Authors.Remove(new Author { Id = id });
 		await _db.SaveChangesAsync();
 	}
 }

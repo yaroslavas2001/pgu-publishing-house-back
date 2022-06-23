@@ -21,4 +21,8 @@ public class AuthorAddModel
 	public EnumEmployeePosition? PositionId { get; set; }
 
 	public EnumAcademicDegree? DegreeId { get; set; }
+
+	public string? NonStuffPosition { get; set; }
+
+	public string? NonStuffWorkPlace { get; set; }
 }
