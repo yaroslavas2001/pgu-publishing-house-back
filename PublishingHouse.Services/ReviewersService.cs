@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PublishingHouse.Data;
 using PublishingHouse.Data.Models;
+using PublishingHouse.External.Mail;
 using PublishingHouse.Interfaces;
 using PublishingHouse.Interfaces.Exstensions.Pagination;
 using PublishingHouse.Interfaces.Model.Reviewer;
@@ -18,6 +19,9 @@ public class ReviewersService : IReviewersService
 
 	public async Task<long> AddReviewerAsync(AddReviewerRequest request)
 	{
+		if (!MailService.IsValidEmailAddress(request.Email))
+			throw new ArgumentException($"Reviewer email address = {request.Email} is not valid");
+
 		var reviewer = new Reviewer
 		{
 			FirstName = request.FirstName,

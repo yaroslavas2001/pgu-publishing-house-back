@@ -1,4 +1,6 @@
-﻿namespace PublishingHouse.Interfaces.Model.Reviewer;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace PublishingHouse.Interfaces.Model.Reviewer;
 
 public class AddReviewerRequest
 {
@@ -8,5 +10,6 @@ public class AddReviewerRequest
 
 	public string SureName { get; set; }
 
+	[Required]
 	public string Email { get; set; }
 }

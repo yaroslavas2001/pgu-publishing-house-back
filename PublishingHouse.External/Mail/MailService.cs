@@ -6,7 +6,7 @@ using PublishingHouse.External.Mail.Request;
 namespace PublishingHouse.External.Mail;
 
 /// <summary>
-///     Todo Статика пока не заплотют
+///     Todo Статика пока не заплатят
 /// </summary>
 public class MailService
 {
@@ -18,13 +18,17 @@ public class MailService
 		("domain", "http://31.31.24.200:5051")
 	};
 
-	private static Dictionary<string, (string path, string caption)> EventLsit =>
+	private static Dictionary<string, (string path, string caption)> EventList =>
 		new()
 		{
 			{
 				"registered",
 				(@"D:\startup\rio-psu\rio-psu\wwwroot\EmailTriggers\registered.html" /*"wwwroot\\EmailTriggers\\registered.html"*/,
 					"Welcome")
+			},
+			{
+				"addReviewer",(@"D:\startup\rio-psu\rio-psu\wwwroot\EmailTriggers\addreviewer.html" /*"wwwroot\\EmailTriggers\\addreviewer.html"*/,
+					"You were attached as a publication reviewer!")
 			}
 		};
 
@@ -39,53 +43,60 @@ public class MailService
 	public async Task SendEvent(string email, string eventName, List<KeyValuePair<string, string>> replaceValue)
 	{
 		var body = await GetTrigger(eventName);
-		SendMail(email, EventLsit[eventName].caption, UpdateBody(body, replaceValue));
+		SendMail(email, EventList[eventName].caption, UpdateBody(body, replaceValue));
 	}
 
-	private void SendMail(string mailto, string caption, string message)
+	public static bool IsValidEmailAddress(string email) =>
+		string.IsNullOrWhiteSpace(email) || Regex.IsMatch(email, @"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z", RegexOptions.IgnoreCase);
+
+	private static void SendMail(string mailto, string caption, string message)
 	{
 		try
 		{
-			using var mail = new MailMessage();
-			mail.From = new MailAddress(From);
+			using var mail = new MailMessage
+			{
+				From = new MailAddress(From),
+				Subject = caption,
+				IsBodyHtml = true,
+				Body = message
+			};
 			mail.To.Add(new MailAddress(Regex.Replace(mailto, @"\+(.*)\@", "@")));
-			mail.Subject = caption;
-			mail.IsBodyHtml = true;
-			mail.Body = message;
-			var client = new SmtpClient();
-			client.Host = "smtp.gmail.com";
-			client.EnableSsl = true;
-			client.Port = 587;
-			client.UseDefaultCredentials = false;
-			client.Credentials = new NetworkCredential(From, Password);
-			client.DeliveryMethod = SmtpDeliveryMethod.Network;
+
+			var client = new SmtpClient
+			{
+				Host = "smtp.gmail.com",
+				EnableSsl = true,
+				Port = 587,
+				UseDefaultCredentials = false,
+				Credentials = new NetworkCredential(From, Password),
+				DeliveryMethod = SmtpDeliveryMethod.Network,
+			};
 			client.Send(mail);
 		}
-		catch (Exception e)
+		catch (Exception)
 		{
 			//_logger.Info("GMail not sent error:"+e.Message);
 		}
 	}
 
-	private string UpdateBody(string message, List<KeyValuePair<string, string>> list)
+	private static string UpdateBody(string message, List<KeyValuePair<string, string>> list)
 	{
 		list.ForEach(x => { message = message.Replace(ConvertKey(x.Key), x.Value); });
 		ReplaceList.ForEach(x => { message = message.Replace(ConvertKey(x.Item1), x.Item2); });
 		return message;
 	}
 
-	private string ConvertKey(string key)
-	{
-		return $"*|{key}|*";
-	}
+	private static string ConvertKey(string key) => $"*|{key}|*";
 
-	private async Task<string> GetTrigger(string triggerName)
+	private static async Task<string> GetTrigger(string triggerName)
 	{
 		if (string.IsNullOrWhiteSpace(triggerName))
-			throw new Exception("тригер не найден");
-		if (!EventLsit.ContainsKey(triggerName))
-			throw new Exception("тригер не поддерживается");
-		using var reader = new StreamReader(EventLsit[triggerName].path);
+			throw new Exception("триггер не найден");
+
+		if (!EventList.ContainsKey(triggerName))
+			throw new Exception("триггер не поддерживается");
+
+		using var reader = new StreamReader(EventList[triggerName].path);
 		return await reader.ReadToEndAsync();
 	}
 }

@@ -1,6 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Net;
+using Microsoft.EntityFrameworkCore;
 using PublishingHouse.Data;
 using PublishingHouse.Data.Models;
+using PublishingHouse.External.Mail;
 using PublishingHouse.Interfaces;
 using PublishingHouse.Interfaces.Exstensions.Pagination;
 using PublishingHouse.Interfaces.Model.Publication;
@@ -11,10 +13,12 @@ namespace PublishingHouse.Services;
 public class PublicationService : IPublicationService
 {
 	private readonly DataContext _db;
+	private readonly MailService _mailService;
 
 	public PublicationService(DataContext db)
 	{
 		_db = db;
+		_mailService = new();
 	}
 
 	public async Task<long> AddPublicationAsync(AddPublicationModel model)
@@ -92,6 +96,9 @@ public class PublicationService : IPublicationService
 		publication.Type = model.Type;
 
 		await _db.SaveChangesAsync();
+
+		if (model.ReviewerId.HasValue)
+			await SendMailToReviewer(publication);
 	}
 
 	public async Task SetPublicationStatusAsync(long publicationId, EnumPublicationStatus status)
@@ -102,5 +109,24 @@ public class PublicationService : IPublicationService
 
 		publication.Status = status;
 		await _db.SaveChangesAsync();
+	}
+
+	private async Task SendMailToReviewer(Publication publication)
+	{
+		var reviewer = await _db.Reviewers.FirstOrDefaultAsync(x => x.Id == publication.ReviewerId);
+
+		if (string.IsNullOrWhiteSpace(reviewer?.Email) || !MailService.IsValidEmailAddress(reviewer.Email))
+			throw new Exception("Reviewer email is not valid!");
+
+		var host = Dns.GetHostName(); //todo make it normally
+
+		var emailParams = new List<KeyValuePair<string, string>>
+		{
+			new( "@Reviewer", $" {reviewer.SureName} {reviewer.FirstName} {reviewer.LastName}"),
+			new( "@Publication", $"{publication.Name}"),
+			new( "@Url", $"{host}\\Publication\\get?publicationId={publication.Id}")
+		};
+
+		await _mailService.SendEvent(reviewer.Email, "addReviewer", emailParams);
 	}
 }
