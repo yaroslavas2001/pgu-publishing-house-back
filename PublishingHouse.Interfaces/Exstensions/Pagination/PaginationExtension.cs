@@ -40,12 +40,12 @@ public static class PaginationExtension
 	/// <param name="query">Запрос IQueryable</param>
 	/// <param name="page">Параметры страницы</param>
 	/// <returns></returns>
-	private static IQueryable<TSource> Page<TSource>(this IQueryable<TSource> query, Page page)
+	private static IQueryable<TSource> Page<TSource>(this IQueryable<TSource> query, Page? page)
 	{
-		if (page.Skip is > 0)
+		if (page?.Skip is > 0)
 			query = query.Skip(page.Skip.Value);
 
-		if (page.Take is > 0)
+		if (page?.Take is > 0)
 			query = query.Take(page.Take.Value);
 
 		return query;

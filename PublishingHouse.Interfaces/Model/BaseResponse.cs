@@ -20,22 +20,21 @@ public class BaseResponse
 	{
 	}
 
-	public BaseResponse(string stackTrace, string errorMessage = "")
+	public BaseResponse(string errorMessage, string stackTrace = "")
 	{
-		StackTrace = stackTrace;
 		ErrorMessage = errorMessage;
+		StackTrace = stackTrace;
 	}
 
-	public BaseResponse(Exception ex, string errorMessage = "")
+	public BaseResponse(Exception ex)
 	{
-		ErrorMessage = $"Custom message: {errorMessage}\n Exception: {ex.Message}";
-
+		ErrorMessage = ex.Message;
 		StackTrace = ex.StackTrace ?? "";
 	}
 
-	public bool IsSuccess => string.IsNullOrEmpty(ErrorMessage);
+	public bool IsSuccess => string.IsNullOrWhiteSpace(ErrorMessage);
 
-	public string ErrorMessage { get; set; }
+	public string ErrorMessage { get; set; } = null!;
 
-	public string StackTrace { get; set; }
+	public string StackTrace { get; set; } = null!;
 }

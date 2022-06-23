@@ -6,5 +6,5 @@ public class Faculty
 
 	public string Name { get; set; } = string.Empty;
 
-	public List<Department> Departments { get; set; }
+	public List<Department> Departments { get; set; } = null!;
 }

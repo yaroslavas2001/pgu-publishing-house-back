@@ -8,8 +8,8 @@ public class Review
 	
 	public Publication Publication { get; set; }
 
-	public string Comment { get; set; }
+	public string Comment { get; set; } = string.Empty;
 
-	public List<File> Files { get; set; }
+	public List<File> Files { get; set; } = null!;
 
 }

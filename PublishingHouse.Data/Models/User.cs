@@ -22,7 +22,7 @@ public class User
 
 	public EnumUserStatus Status { get; set; } = EnumUserStatus.New;
 
-	public List<Publication> Publications { get; set; }
+	public List<Publication> Publications { get; set; } = null!;
 
-	public List<MailToken> Tokens { get; set; }
+	public List<MailToken> Tokens { get; set; } = null!;
 }

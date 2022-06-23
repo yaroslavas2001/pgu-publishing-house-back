@@ -12,5 +12,5 @@ public class Reviewer
 
 	public string Email { get; set; } = string.Empty;
 
-	public List<Publication> Publications { get; set; }
+	public List<Publication> Publications { get; set; } = null!;
 }

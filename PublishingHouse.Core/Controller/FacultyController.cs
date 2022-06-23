@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PublishingHouse.Interfaces;
 using PublishingHouse.Interfaces.Exstensions.Pagination;
@@ -60,7 +61,7 @@ public class FacultyController : Microsoft.AspNetCore.Mvc.Controller
 	[Route($"{nameof(Get)}")]
 	[ProducesResponseType(200, Type = typeof(BaseResponse<(long Id, string Name)>))]
 	[ProducesResponseType(400, Type = typeof(BaseResponse))]
-	public async Task<BaseResponse<(long Id, string Name)>> Get([FromQuery] long id)
+	public async Task<BaseResponse<(long Id, string Name)>> Get([FromQuery] [Required] long id)
 	{
 		var result = await _faculty.GetFacultyAsync(id);
 		return new BaseResponse<(long Id, string Name)>((result.Id, result.Name));

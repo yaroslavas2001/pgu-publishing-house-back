@@ -22,11 +22,11 @@ public class Publication
 
 	public long UserId { get; set; }
 
-	public List<PublicationAuthors> Authors { get; set; }
+	public List<PublicationAuthors> Authors { get; set; } = null!;
 
-	public Reviewer Reviewer { get; set; }
+	public Reviewer Reviewer { get; set; } = null!;
 
 	public long? ReviewerId { get; set; }
 
-	public List<Review> Reviews { get; set; }
+	public List<Review> Reviews { get; set; } = null!;
 }
