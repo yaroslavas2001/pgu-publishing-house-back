@@ -1,4 +1,5 @@
 ﻿using PublishingHouse.StorageEnums;
+using static System.String;
 
 namespace PublishingHouse.Interfaces.Model.Files;
 
@@ -15,7 +16,7 @@ public class AddFileModel
 	/// <summary>
 	///     Содержимое файла в Base64
 	/// </summary>
-	public string FileBase64 { get; set; }
+	public string FileBase64 { get; set; } = Empty;
 
 	/// <summary>
 	///     Доступен ли файл для ревьюеров

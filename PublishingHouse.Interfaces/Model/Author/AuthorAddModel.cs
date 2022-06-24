@@ -10,9 +10,9 @@ public class AuthorAddModel
 
 	public string SureName { get; set; } = string.Empty;
 
-	public string Contacts { get; set; }
+	public string Contacts { get; set; } = string.Empty;
 
-	public string Email { get; set; }
+	public string Email { get; set; } = string.Empty;
 
 	public bool IsTeacher { get; set; }
 
