@@ -23,11 +23,11 @@ public class MailService
 		{
 			{
 				"registered",
-				(@"D:\startup\rio-psu\rio-psu\wwwroot\EmailTriggers\registered.html" /*"wwwroot\\EmailTriggers\\registered.html"*/,
+				(@"D:\Projects\pgu-publishing-house-back\PublishingHouse.Core\wwwroot\EmailTriggers\registered.html" /*"wwwroot\\EmailTriggers\\registered.html"*/,
 					"Welcome")
 			},
 			{
-				"addReviewer",(@"D:\startup\rio-psu\rio-psu\wwwroot\EmailTriggers\addreviewer.html" /*"wwwroot\\EmailTriggers\\addreviewer.html"*/,
+				"addReviewer",(@"D:\Projects\pgu-publishing-house-back\PublishingHouse.Core\wwwroot\EmailTriggers\addreviewer.html" /*"wwwroot\\EmailTriggers\\addreviewer.html"*/,
 					"You were attached as a publication reviewer!")
 			}
 		};

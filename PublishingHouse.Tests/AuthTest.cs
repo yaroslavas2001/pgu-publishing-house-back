@@ -40,7 +40,7 @@ public class AuthTest : IClassFixture<DbFixture>
 		userExist.Should().BeEquivalentTo(new
 		{
 			request.Email,
-			request.FatherName,
+			request.SureName,
 			request.FirstName,
 			request.LastName,
 			Status = EnumUserStatus.New,

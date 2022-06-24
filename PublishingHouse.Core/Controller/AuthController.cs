@@ -15,14 +15,7 @@ public class AuthController : Microsoft.AspNetCore.Mvc.Controller
 	[ProducesResponseType(400, Type = typeof(BaseResponse))]
 	public async Task<BaseResponse<LoginResponse>> Login([FromServices] IAuthService auth, LoginRequest request)
 	{
-		try
-		{
-			return await auth.Login(request);
-		}
-		catch (Exception e)
-		{
-			return new BaseResponse<LoginResponse>(e);
-		}
+		return await auth.Login(request);
 	}
 
 	[HttpPost]
@@ -31,14 +24,7 @@ public class AuthController : Microsoft.AspNetCore.Mvc.Controller
 	[ProducesResponseType(400, Type = typeof(BaseResponse))]
 	public async Task<BaseResponse> Register([FromServices] IAuthService auth, RegisterRequest request)
 	{
-		try
-		{
-			return await auth.Register(request);
-		}
-		catch (Exception e)
-		{
-			return new BaseResponse<TokenResponse>(e);
-		}
+		return await auth.Register(request);
 	}
 
 	[HttpPost]
@@ -47,13 +33,6 @@ public class AuthController : Microsoft.AspNetCore.Mvc.Controller
 	[ProducesResponseType(400, Type = typeof(BaseResponse))]
 	public async Task<BaseResponse> ActivateAccount([FromServices] IAuthService auth, ActivateAccountRequest request)
 	{
-		try
-		{
-			return await auth.ActivateAccount(request);
-		}
-		catch (Exception e)
-		{
-			return new BaseResponse<TokenResponse>(e);
-		}
+		return await auth.ActivateAccount(request);
 	}
 }
