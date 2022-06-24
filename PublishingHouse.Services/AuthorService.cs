@@ -107,8 +107,8 @@ public class AuthorService : IAuthorService
 		if (model.AcademicDegree.HasValue)
 			author.AcademicDegree = model.AcademicDegree;
 
-		if (model.EmployeerPosition.HasValue)
-			author.EmployeerPosition = model.EmployeerPosition;
+		if (model.EmployerPosition.HasValue)
+			author.EmployeerPosition = model.EmployerPosition;
 
 		await _db.SaveChangesAsync();
 	}

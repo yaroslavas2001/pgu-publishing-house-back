@@ -22,7 +22,7 @@ public class AuthorController : Microsoft.AspNetCore.Mvc.Controller
 	[Route($"{nameof(Add)}")]
 	[ProducesResponseType(200, Type = typeof(BaseResponse<AuthorShortModel>))]
 	[ProducesResponseType(400, Type = typeof(BaseResponse))]
-	public async Task<BaseResponse<AuthorShortModel>> Add(AuthorAddModel model)
+	public async Task<BaseResponse<AuthorShortModel>> Add([FromBody]AuthorAddModel model)
 	{
 		var response = await _authorService.Add(model);
 		return new BaseResponse<AuthorShortModel>(response);

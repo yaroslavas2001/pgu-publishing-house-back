@@ -4,11 +4,11 @@ namespace PublishingHouse.Interfaces.Model.Publication;
 
 public class AddPublicationModel
 {
-	public string UDC;
+	public string UDC { get; set; } = string.Empty;
 
-	public string Name { get; set; }
+	public string Name { get; set; } = string.Empty;
 
-	public string Tags { get; set; }
+	public string Tags { get; set; } = string.Empty;
 
 	public EnumPublicationType Type { get; set; }
 
