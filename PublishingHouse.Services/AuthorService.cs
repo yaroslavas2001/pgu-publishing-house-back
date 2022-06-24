@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PublishingHouse.Data;
 using PublishingHouse.Data.Models;
+using PublishingHouse.External.Mail;
 using PublishingHouse.Interfaces;
 using PublishingHouse.Interfaces.Exstensions.Pagination;
 using PublishingHouse.Interfaces.Model.Author;
@@ -22,7 +23,6 @@ public class AuthorService : IAuthorService
 
 		var author = new Author
 		{
-			Email = model.Email,
 			Contacts = model.Contacts,
 			SureName = model.SureName,
 			FirstName = model.FirstName,
@@ -34,8 +34,16 @@ public class AuthorService : IAuthorService
 			NonStuffWorkPlace = !isTeacher ? model.NonStuffWorkPlace : null
 		};
 
-		if (model.DepartmentId.HasValue && model.DepartmentId != 0 && await _db.Departments.AnyAsync(x=>x.Id==model.DepartmentId))
+		if (model.DepartmentId.HasValue && model.DepartmentId != 0 && await _db.Departments.AnyAsync(x => x.Id==model.DepartmentId))
 			author.DepartmentId = isTeacher ? model.DepartmentId : null;
+
+		if (!string.IsNullOrWhiteSpace(model.Email))
+		{
+			if (MailService.IsValidEmailAddress(model.Email))
+				author.Email = model.Email;
+			else
+				throw new ArgumentException($"Email address {model.Email} is not valid!");
+		}
 
 		await _db.AddAsync(author);
 		await _db.SaveChangesAsync();
