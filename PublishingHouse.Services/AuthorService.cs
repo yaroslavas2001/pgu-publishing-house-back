@@ -29,11 +29,13 @@ public class AuthorService : IAuthorService
 			IsTeacher = model.IsTeacher,
 			LastName = model.LastName,
 			AcademicDegree = isTeacher ? model.DegreeId : null,
-			DepartmentId = isTeacher ? model.DepartmentId : null,
 			EmployeerPosition = isTeacher ? model.PositionId : null,
 			NonStuffPosition = !isTeacher ? model.NonStuffPosition : null,
 			NonStuffWorkPlace = !isTeacher ? model.NonStuffWorkPlace : null
 		};
+
+		if (model.DepartmentId.HasValue && model.DepartmentId != 0 && await _db.Departments.AnyAsync(x=>x.Id==model.DepartmentId))
+			author.DepartmentId = isTeacher ? model.DepartmentId : null;
 
 		await _db.AddAsync(author);
 		await _db.SaveChangesAsync();

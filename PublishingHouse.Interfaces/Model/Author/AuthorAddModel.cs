@@ -16,13 +16,13 @@ public class AuthorAddModel
 
 	public bool IsTeacher { get; set; }
 
-	public long? DepartmentId { get; set; }
+	public long? DepartmentId { get; set; } = null;
 
-	public EnumEmployeePosition? PositionId { get; set; }
+	public EnumEmployeePosition? PositionId { get; set; } = null;
 
-	public EnumAcademicDegree? DegreeId { get; set; }
+	public EnumAcademicDegree? DegreeId { get; set; } = null;
 
-	public string? NonStuffPosition { get; set; }
+	public string? NonStuffPosition { get; set; } = null;
 
-	public string? NonStuffWorkPlace { get; set; }
+	public string? NonStuffWorkPlace { get; set; } = null;
 }
