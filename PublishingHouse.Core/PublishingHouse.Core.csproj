@@ -35,6 +35,7 @@
 	<ItemGroup>
 		<Folder Include="Helpers\" />
 		<Folder Include="Models\Faculty\" />
+		<Folder Include="Models\Publication\" />
 	</ItemGroup>
 
 	<ItemGroup>

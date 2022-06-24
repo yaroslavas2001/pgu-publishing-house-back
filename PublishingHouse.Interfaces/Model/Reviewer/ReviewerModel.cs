@@ -9,4 +9,6 @@ public class ReviewerModel
 	public string SureName { get; set; }
 
 	public long Id { get; set; }
+
+	public string Email { get; set; }
 }

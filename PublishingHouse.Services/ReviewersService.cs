@@ -61,7 +61,8 @@ public class ReviewersService : IReviewersService
 				Id = x.Id,
 				FirstName = x.FirstName,
 				SureName = x.SureName,
-				LastName = x.LastName
+				LastName = x.LastName,
+				Email = x.Email
 			});
 	}
 
