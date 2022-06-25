@@ -24,7 +24,7 @@ public class PublicationController : Microsoft.AspNetCore.Mvc.Controller
 	/// <param name="model"></param>
 	/// <returns></returns>
 	[HttpPost]
-	[Authorize]
+	//[Authorize]
 	[Route($"{nameof(Add)}")]
 	[ProducesResponseType(200, Type = typeof(BaseResponse<long>))]
 	[ProducesResponseType(400, Type = typeof(BaseResponse))]
