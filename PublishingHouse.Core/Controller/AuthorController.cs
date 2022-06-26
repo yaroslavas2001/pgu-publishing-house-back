@@ -49,7 +49,7 @@ public class AuthorController : Microsoft.AspNetCore.Mvc.Controller
 	}
 
 	[HttpPatch]
-	[Authorize]
+	//[Authorize]
 	[Route($"{nameof(Update)}")]
 	[ProducesResponseType(200, Type = typeof(BaseResponse))]
 	[ProducesResponseType(400, Type = typeof(BaseResponse))]
@@ -60,7 +60,7 @@ public class AuthorController : Microsoft.AspNetCore.Mvc.Controller
 	}
 
 	[HttpDelete]
-	[Authorize]
+	//[Authorize]
 	[Route($"{nameof(Delete)}")]
 	[ProducesResponseType(200, Type = typeof(BaseResponse))]
 	[ProducesResponseType(400, Type = typeof(BaseResponse))]

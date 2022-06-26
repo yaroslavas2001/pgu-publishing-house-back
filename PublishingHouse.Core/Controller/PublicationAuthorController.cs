@@ -55,7 +55,7 @@ public class PublicationAuthorController : Microsoft.AspNetCore.Mvc.Controller
 	/// <param name="authorId"></param>
 	/// <returns></returns>
 	[HttpDelete]
-	[Authorize]
+	//[Authorize]
 	[Route($"{nameof(Remove)}")]
 	[ProducesResponseType(200, Type = typeof(BaseResponse))]
 	[ProducesResponseType(400, Type = typeof(BaseResponse))]
