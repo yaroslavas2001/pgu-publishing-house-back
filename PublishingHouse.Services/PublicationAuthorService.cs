@@ -18,11 +18,11 @@ public class PublicationAuthorService : IPublicationAuthorService
 
     public async Task SetPublicationAuthorAsync(long publicationId, long authorId)
     {
-        var publication = await _db.Publications.FirstOrDefaultAsync(x => x.Id != publicationId);
+        var publication = await _db.Publications.FirstOrDefaultAsync(x => x.Id == publicationId);
         if (publication is null)
             throw new PublicationHouseException($"Publication id = {publicationId} is not exists!", EnumErrorCode.EntityIsNotFound);
 
-        var author = await _db.Authors.FirstOrDefaultAsync(x => x.Id != authorId);
+        var author = await _db.Authors.FirstOrDefaultAsync(x => x.Id == authorId);
         if (author is null)
             throw new PublicationHouseException($"Authors id = {authorId} is not exists!", EnumErrorCode.EntityIsNotFound);
 
