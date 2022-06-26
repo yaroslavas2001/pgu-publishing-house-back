@@ -6,6 +6,9 @@ using PublishingHouse.Interfaces.Model.Author;
 
 namespace PublishingHouse.Controller;
 
+/// <summary>
+/// Авторы
+/// </summary>
 [Route("/[controller]")]
 [Produces("application/json")]
 public class AuthorController : Microsoft.AspNetCore.Mvc.Controller

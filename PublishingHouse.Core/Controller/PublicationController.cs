@@ -7,6 +7,9 @@ using PublishingHouse.StorageEnums;
 
 namespace PublishingHouse.Controller;
 
+/// <summary>
+/// Публикации
+/// </summary>
 [Route("/[controller]")]
 [Produces("application/json")]
 public class PublicationController : Microsoft.AspNetCore.Mvc.Controller

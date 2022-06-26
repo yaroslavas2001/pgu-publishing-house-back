@@ -5,6 +5,9 @@ using PublishingHouse.Interfaces.Model.Files;
 
 namespace PublishingHouse.Controller;
 
+/// <summary>
+/// Файлы
+/// </summary>
 [Route("/[controller]")]
 [Produces("application/json")]
 public class FileController : Microsoft.AspNetCore.Mvc.Controller
@@ -22,6 +25,9 @@ public class FileController : Microsoft.AspNetCore.Mvc.Controller
 	public async Task<BaseResponse<string>> UploadFileForPublication([FromServices] IFileService service,
 		[FromBody] AddFileModel model)
 	{
+		if (string.IsNullOrWhiteSpace(model.Name) || model.Name.IndexOfAny(Path.GetInvalidFileNameChars()) > 0)
+			throw new FileLoadException("File name is incorrect!", model.Name);
+
 		var result = await service.AddFileAsync(model);
 		return new BaseResponse<string>(result);
 	}

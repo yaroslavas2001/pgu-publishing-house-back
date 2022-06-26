@@ -8,7 +8,7 @@ namespace PublishingHouse.Services.Infrastruct;
 
 public class FileService : IFileService
 {
-	private const string BaseDir = "/Files";
+	private const string BaseDir = "\\wwwroot\\files";
 	private readonly DataContext _db;
 
 	public FileService(DataContext db)
@@ -25,27 +25,34 @@ public class FileService : IFileService
 		if (!Directory.Exists(directory))
 			Directory.CreateDirectory(directory);
 
-		var path = directory+$"\\{model.Name}";
+		var path = Path.Combine(directory, model?.Name);
 
 		if (File.Exists(path))
 			throw new Exception($"File {path} is already exists");
 
 		var fileBytes = Convert.FromBase64String(model.FileBase64);
 		await File.WriteAllBytesAsync(path, fileBytes);
-
-		var file = new Data.Models.File
+		try
 		{
-			IsVisibleForReviewers = model.IsVisibleForReviewers,
-			Name = path,
-			Type = model.FileType,
-			PublicationId = model.PublicationId,
-			Url = path.ConvertServerPathToUri()
-		};
+			var file = new Data.Models.File
+			{
+				IsVisibleForReviewers = model.IsVisibleForReviewers,
+				Name = path,
+				Type = model.FileType,
+				PublicationId = model.PublicationId,
+				Url = path.ConvertServerPathToUri()
+			};
 
-		await _db.Files.AddAsync(file);
-		await _db.SaveChangesAsync();
-
-		return file.Url;
+			await _db.Files.AddAsync(file);
+			await _db.SaveChangesAsync();
+			return file.Url;
+		}
+		catch (Exception)
+		{
+			if (File.Exists(path))
+				File.Delete(path);
+			throw;
+		}
 	}
 
 	public async Task<IReadOnlyCollection<PublicationFileModel>> GetPublicationFilesAsync(long publicationId,

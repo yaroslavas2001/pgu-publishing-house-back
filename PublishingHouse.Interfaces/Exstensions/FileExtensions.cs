@@ -36,6 +36,7 @@ public static class FileExtensions
 
 	public static string ConvertToServerPath(this string path, string baseDir)
 	{
-		return Path.Combine(baseDir, path);
+		var currentPath = Directory.GetCurrentDirectory() + baseDir;
+		return Path.Combine(currentPath, path);
 	}
 }

@@ -33,5 +33,5 @@ public class AddFileModel
 	/// Имя файла
 	/// </summary>
 	[Required]
-	public string Name { get; set; }
+	public string Name { get; set; } = "unknown";
 }

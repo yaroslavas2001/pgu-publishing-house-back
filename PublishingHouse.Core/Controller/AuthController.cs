@@ -5,6 +5,9 @@ using PublishingHouse.Interfaces.Model.Auth;
 
 namespace PublishingHouse.Controller;
 
+/// <summary>
+/// Авторизация
+/// </summary>
 [Route("/[controller]")]
 [Produces("application/json")]
 public class AuthController : Microsoft.AspNetCore.Mvc.Controller

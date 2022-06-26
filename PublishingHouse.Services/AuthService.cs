@@ -26,16 +26,15 @@ public class AuthService : IAuthService
 
 	public async Task<BaseResponse<LoginResponse>> Login(LoginRequest request)
 	{
-		if (string.IsNullOrWhiteSpace(request.Password)
-		    || string.IsNullOrWhiteSpace(request.Email))
-			throw new Exception("Заполни нужные поля");
+		if (string.IsNullOrWhiteSpace(request.Password) || string.IsNullOrWhiteSpace(request.Email))
+			throw new Exception("Email and password are required!");
 
 		var user = await _db.Users.FirstOrDefaultAsync(x => x.Email == request.Email.ToLower());
 		if (user == null || user.Status is EnumUserStatus.New or EnumUserStatus.Blocked)
-			throw new Exception("Ты кто такой, я таких не знаю");
+			throw new Exception("Access denied!");
 
 		if (user.PasswordHash != PasswordHashService.GetHashPassword(request.Password, user.PasswordKey))
-			throw new Exception("Пароль должен быть правильный");
+			throw new Exception("Password are incorrect");
 
 		var response = new LoginResponse
 		{
