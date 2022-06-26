@@ -9,13 +9,17 @@ public class PublicationAuthorsConfiguration : IEntityTypeConfiguration<Publicat
 	public void Configure(EntityTypeBuilder<PublicationAuthors> builder)
 	{
 		builder.HasKey(x => new {x.AuthorId, x.PublicationId});
+
 		builder
 			.HasOne(x => x.Author)
 			.WithMany(x => x.Publications)
-			.HasForeignKey(x => x.PublicationId);
+			.HasForeignKey(x => x.PublicationId)
+			.IsRequired(true);
+
 		builder
 			.HasOne(x => x.Publication)
 			.WithMany(x => x.Authors)
-			.HasForeignKey(x => x.AuthorId);
+			.HasForeignKey(x => x.AuthorId)
+			.IsRequired(true);
 	}
 }
