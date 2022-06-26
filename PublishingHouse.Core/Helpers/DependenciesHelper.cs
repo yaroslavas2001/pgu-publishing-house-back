@@ -77,7 +77,7 @@ internal static class DependenciesHelper
 				Name = "Authorization",
 				In = ParameterLocation.Header,
 				Scheme = "bearer",
-				Type = SecuritySchemeType.Http,
+				Type = SecuritySchemeType.ApiKey,
 				BearerFormat = "JWT"
 			});
 
@@ -86,7 +86,11 @@ internal static class DependenciesHelper
 				{
 					new OpenApiSecurityScheme
 					{
-						Reference = new OpenApiReference {Type = ReferenceType.SecurityScheme, Id = "Bearer"}
+						Reference = new OpenApiReference
+						{
+							Type = ReferenceType.SecurityScheme,
+							Id = "Bearer"
+						}
 					},
 					new List<string>()
 				}
@@ -143,6 +147,7 @@ internal static class DependenciesHelper
 					// валидация ключа безопасности
 					ValidateIssuerSigningKey = true
 				};
+				
 			});
 
 		return serviceCollection;

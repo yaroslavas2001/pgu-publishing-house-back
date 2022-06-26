@@ -1,4 +1,5 @@
-﻿using PublishingHouse.StorageEnums;
+﻿using System.ComponentModel.DataAnnotations;
+using PublishingHouse.StorageEnums;
 using static System.String;
 
 namespace PublishingHouse.Interfaces.Model.Files;
@@ -8,11 +9,6 @@ namespace PublishingHouse.Interfaces.Model.Files;
 /// </summary>
 public class AddFileModel
 {
-	/// <summary>
-	///     Путь к файлу, для хранения
-	/// </summary>
-	public string? Path { get; set; }
-
 	/// <summary>
 	///     Содержимое файла в Base64
 	/// </summary>
@@ -32,4 +28,10 @@ public class AddFileModel
 	///     Идентификатор публикации
 	/// </summary>
 	public long PublicationId { get; set; }
+
+	/// <summary>
+	/// Имя файла
+	/// </summary>
+	[Required]
+	public string Name { get; set; }
 }

@@ -20,10 +20,12 @@ public class FileService : IFileService
 
 	public async Task<string> AddFileAsync(AddFileModel? model)
 	{
-		if (model?.Path == null || model.Path.IsValidPath())
-			throw new FileLoadException($"Path {model?.Path} is not valid!");
+		var filePath = Guid.NewGuid().ToString().Replace("-", "")[..8];
+		var directory = filePath.ConvertToServerPath(BaseDir);
+		if (!Directory.Exists(directory))
+			Directory.CreateDirectory(directory);
 
-		var path = model.Path.ConvertToServerPath(BaseDir);
+		var path = directory+$"\\{model.Name}";
 
 		if (File.Exists(path))
 			throw new Exception($"File {path} is already exists");

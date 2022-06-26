@@ -18,7 +18,7 @@ public class User
 
 	public string PasswordKey { get; set; } = string.Empty;
 
-	public EnumUserRole Role { get; set; }
+	public EnumUserRole Role { get; set; } = EnumUserRole.User;
 
 	public EnumUserStatus Status { get; set; } = EnumUserStatus.New;
 

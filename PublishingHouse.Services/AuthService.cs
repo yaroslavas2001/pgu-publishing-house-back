@@ -72,10 +72,10 @@ public class AuthService : IAuthService
 		var user = new User
 		{
 			Email = request.Email,
-			SureName = request.SureName,
-			FirstName = request.FirstName,
+			SureName = request.SureName ?? string.Empty,
+			FirstName = request.FirstName ?? string.Empty,
+			LastName = request.LastName ?? string.Empty,
 			Status = EnumUserStatus.New,
-			LastName = request.LastName,
 			Role = EnumUserRole.User,
 			PasswordKey = password.Key,
 			PasswordHash = password.Hash
@@ -85,9 +85,8 @@ public class AuthService : IAuthService
 		{
 			DateExpire = DateTime.UtcNow.AddDays(5),
 			Key = guidEmail,
-			UserId = user.Id
+			User = user
 		};
-
 
 		await _mailService.RegisterSuccess(new SendRegisterMail
 		{
@@ -95,8 +94,6 @@ public class AuthService : IAuthService
 			Token = guidEmail.ToString("D")
 		});
 
-
-		await _db.Users.AddAsync(user);
 		await _db.MailToken.AddAsync(token);
 		await _db.SaveChangesAsync();
 

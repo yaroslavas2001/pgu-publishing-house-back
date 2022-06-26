@@ -65,7 +65,11 @@ public class MailService
 			var client = new SmtpClient
 			{
 				Host = "smtp.gmail.com",
+#if DEBUG
+				EnableSsl = false,
+#else
 				EnableSsl = true,
+#endif
 				Port = 587,
 				UseDefaultCredentials = false,
 				Credentials = new NetworkCredential(From, Password),
