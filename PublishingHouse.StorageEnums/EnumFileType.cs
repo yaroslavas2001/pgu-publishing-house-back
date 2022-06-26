@@ -8,22 +8,37 @@ namespace PublishingHouse.StorageEnums;
 public enum EnumFileType
 {
 	/// <summary>
-	/// Выписка с кафедры
+	/// Статья
 	/// </summary>
-	Extract = 0,
+	Article = 1,
 
 	/// <summary>
-	/// Общее
+	/// Методичка
 	/// </summary>
-	Abstract = 1,
+	Manual = 2,
+
+	/// <summary>
+	/// Бланк
+	/// </summary>
+	Book = 3,
+
+	/// <summary>
+	/// Бланк
+	/// </summary>
+	Blank = 4,
 
 	/// <summary>
 	/// Анти-плагиат
 	/// </summary>
-	AntiPlagiarism = 2,
+	AntiPlagiarism = 5,
 
 	/// <summary>
-	/// Статья
+	/// Выписка с кафедры
 	/// </summary>
-	Article = 3
+	Extract = 6,
+
+	/// <summary>
+	/// Общее
+	/// </summary>
+	Abstract = 7,
 }
