@@ -3,7 +3,9 @@ using PublishingHouse.Data;
 using PublishingHouse.Data.Models;
 using PublishingHouse.External.Mail;
 using PublishingHouse.Interfaces;
-using PublishingHouse.Interfaces.Exstensions.Pagination;
+using PublishingHouse.Interfaces.Enums;
+using PublishingHouse.Interfaces.Extensions.Pagination;
+using PublishingHouse.Interfaces.Model;
 using PublishingHouse.Interfaces.Model.Reviewer;
 
 namespace PublishingHouse.Services;
@@ -20,7 +22,7 @@ public class ReviewersService : IReviewersService
 	public async Task<long> AddReviewerAsync(AddReviewerRequest request)
 	{
 		if (!MailService.IsValidEmailAddress(request.Email))
-			throw new ArgumentException($"Reviewer email address = {request.Email} is not valid");
+			throw new PublicationHouseException($"Reviewer email address = {request.Email} is not valid", EnumErrorCode.EmailIsNotValid);
 
 		var reviewer = new Reviewer
 		{

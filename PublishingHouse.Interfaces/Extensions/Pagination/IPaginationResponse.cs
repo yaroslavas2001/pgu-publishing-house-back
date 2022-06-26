@@ -1,4 +1,4 @@
-﻿namespace PublishingHouse.Interfaces.Exstensions.Pagination;
+﻿namespace PublishingHouse.Interfaces.Extensions.Pagination;
 
 /// <summary>
 ///     Интерфейс ответа постранички

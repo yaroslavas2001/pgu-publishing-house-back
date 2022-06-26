@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PublishingHouse.Interfaces;
-using PublishingHouse.Interfaces.Exstensions.Pagination;
+using PublishingHouse.Interfaces.Extensions.Pagination;
 using PublishingHouse.Interfaces.Model;
 using PublishingHouse.Interfaces.Model.Faculty;
 using PublishingHouse.Models.Faculty;

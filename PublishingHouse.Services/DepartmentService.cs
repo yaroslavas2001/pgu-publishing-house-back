@@ -2,7 +2,9 @@
 using PublishingHouse.Data;
 using PublishingHouse.Data.Models;
 using PublishingHouse.Interfaces;
-using PublishingHouse.Interfaces.Exstensions.Pagination;
+using PublishingHouse.Interfaces.Enums;
+using PublishingHouse.Interfaces.Extensions.Pagination;
+using PublishingHouse.Interfaces.Model;
 using PublishingHouse.Interfaces.Model.Departmanet;
 
 namespace PublishingHouse.Services;
@@ -19,7 +21,7 @@ public class DepartmentService : IDepartmentService
 	public async Task<long> AddDepartmentAsync(long facultyId, string name)
 	{
 		if (await _db.Faculties.AllAsync(x => x.Id != facultyId))
-			throw new Exception($"Faculty {facultyId} is not exists!");
+			throw new PublicationHouseException($"Faculty {facultyId} is not exists!", EnumErrorCode.EntityIsNotFound);
 
 		var department = new Department
 		{
@@ -54,7 +56,7 @@ public class DepartmentService : IDepartmentService
 	{
 		var department = await _db.Departments.FirstOrDefaultAsync(x => x.Id == departmentId);
 		if (department is null)
-			throw new Exception($"Department {departmentId} is not exists!");
+			throw new PublicationHouseException($"Department {departmentId} is not exists!", EnumErrorCode.EntityIsNotFound);
 
 		department.Name = name;
 		await _db.SaveChangesAsync();

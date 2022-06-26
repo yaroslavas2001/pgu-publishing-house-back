@@ -1,4 +1,4 @@
-﻿using PublishingHouse.Interfaces.Exstensions.Pagination;
+﻿using PublishingHouse.Interfaces.Extensions.Pagination;
 using PublishingHouse.StorageEnums;
 
 namespace PublishingHouse.Interfaces.Model.Publication;
@@ -17,5 +17,5 @@ public class GetPublicationsRequest : IPaginationRequest
 
 	public long? ReviewerId { get; set; }
 
-	public Page Page { get; set; }
+	public Page Page { get; set; } = new Page();
 }

@@ -1,10 +1,10 @@
-﻿using PublishingHouse.Interfaces.Exstensions.Pagination;
+﻿using PublishingHouse.Interfaces.Extensions.Pagination;
 
 namespace PublishingHouse.Interfaces.Model.Author;
 
 public class GetAuthorResponse : IPaginationResponse<AuthorModel>
 {
-	public Page Page { get; set; }
+	public Page Page { get; set; } = new Page();
 
 	public long Count { get; set; }
 

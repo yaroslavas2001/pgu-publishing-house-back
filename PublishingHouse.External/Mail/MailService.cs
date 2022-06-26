@@ -2,6 +2,8 @@
 using System.Net.Mail;
 using System.Text.RegularExpressions;
 using PublishingHouse.External.Mail.Request;
+using PublishingHouse.Interfaces.Enums;
+using PublishingHouse.Interfaces.Model;
 
 namespace PublishingHouse.External.Mail;
 
@@ -95,10 +97,10 @@ public class MailService
 	private static async Task<string> GetTrigger(string triggerName)
 	{
 		if (string.IsNullOrWhiteSpace(triggerName))
-			throw new Exception("триггер не найден");
+			throw new PublicationHouseException(EnumErrorCode.TriggerIsNotFound);
 
 		if (!EventList.ContainsKey(triggerName))
-			throw new Exception("триггер не поддерживается");
+			throw new PublicationHouseException(EnumErrorCode.TriggerIsNotSupported);
 
 		using var reader = new StreamReader(EventList[triggerName].path);
 		return await reader.ReadToEndAsync();

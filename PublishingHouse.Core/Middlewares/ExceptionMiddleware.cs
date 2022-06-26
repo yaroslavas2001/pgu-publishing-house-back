@@ -24,6 +24,12 @@ public class ExceptionMiddleware
 		{
 			await _next.Invoke(context);
 		}
+		catch (PublicationHouseException phe)
+		{
+			context.Response.Clear();
+			context.Response.StatusCode = 500;
+			await context.Response.WriteAsJsonAsync(new BaseResponse(phe));
+		}
 		catch (Exception e)
 		{
 			context.Response.Clear();

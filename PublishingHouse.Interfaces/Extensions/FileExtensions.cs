@@ -1,6 +1,6 @@
 ﻿using System.Text.RegularExpressions;
 
-namespace PublishingHouse.Interfaces.Exstensions;
+namespace PublishingHouse.Interfaces.Extensions;
 
 public static class FileExtensions
 {

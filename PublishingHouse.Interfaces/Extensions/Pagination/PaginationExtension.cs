@@ -1,7 +1,7 @@
 ﻿using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
 
-namespace PublishingHouse.Interfaces.Exstensions.Pagination;
+namespace PublishingHouse.Interfaces.Extensions.Pagination;
 
 public static class PaginationExtension
 {

@@ -3,7 +3,9 @@ using PublishingHouse.Data;
 using PublishingHouse.Data.Models;
 using PublishingHouse.External.Mail;
 using PublishingHouse.Interfaces;
-using PublishingHouse.Interfaces.Exstensions.Pagination;
+using PublishingHouse.Interfaces.Enums;
+using PublishingHouse.Interfaces.Extensions.Pagination;
+using PublishingHouse.Interfaces.Model;
 using PublishingHouse.Interfaces.Model.Author;
 
 namespace PublishingHouse.Services;
@@ -42,7 +44,7 @@ public class AuthorService : IAuthorService
 			if (MailService.IsValidEmailAddress(model.Email))
 				author.Email = model.Email;
 			else
-				throw new ArgumentException($"Email address {model.Email} is not valid!");
+				throw new PublicationHouseException($"Email address {model.Email} is not valid!", EnumErrorCode.EmailIsNotValid);
 		}
 
 		await _db.AddAsync(author);
@@ -100,7 +102,7 @@ public class AuthorService : IAuthorService
 	{
 		var author = await _db.Authors.FirstOrDefaultAsync(x => x.Id == model.AuthorId);
 		if (author is null)
-			throw new Exception($"Author Id = {model.AuthorId} is not found!");
+			throw new PublicationHouseException($"Author Id = {model.AuthorId} is not found!", EnumErrorCode.EntityIsNotFound);
 
 		if (!string.IsNullOrWhiteSpace(model.FirstName))
 			author.FirstName = model.FirstName;
@@ -126,10 +128,10 @@ public class AuthorService : IAuthorService
 	public async Task Remove(long id)
 	{
 		if (await _db.Authors.AllAsync(x => x.Id != id))
-			throw new Exception($"Author id = {id} is not exists!");
+			throw new PublicationHouseException($"Author id = {id} is not exists!",EnumErrorCode.EntityIsNotFound);
 
 		if (await _db.PublicationsAuthors.AnyAsync(x => x.AuthorId == id))
-			throw new Exception("Author with publications can't be deleted!");
+			throw new PublicationHouseException("Author with publications can't be deleted!", EnumErrorCode.EntityWithRelationsCantBeDeleted);
 
 		_db.Authors.Remove(new Author { Id = id });
 		await _db.SaveChangesAsync();

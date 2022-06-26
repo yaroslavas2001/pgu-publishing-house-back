@@ -2,7 +2,9 @@
 using PublishingHouse.Data;
 using PublishingHouse.Data.Models;
 using PublishingHouse.Interfaces;
-using PublishingHouse.Interfaces.Exstensions.Pagination;
+using PublishingHouse.Interfaces.Enums;
+using PublishingHouse.Interfaces.Extensions.Pagination;
+using PublishingHouse.Interfaces.Model;
 using PublishingHouse.Interfaces.Model.Faculty;
 
 namespace PublishingHouse.Services;
@@ -19,10 +21,10 @@ public class FacultyService : IFacultyService
 	public async Task<Faculty?> CreateFacultyAsync(string name)
 	{
 		if (string.IsNullOrWhiteSpace(name))
-			throw new ArgumentNullException(nameof(name), "Incorrect faculty name!");
+			throw new PublicationHouseException("Incorrect faculty name!", EnumErrorCode.ArgumentIsIncorrect);
 
 		if (await _db.Faculties.AnyAsync(x => x.Name == name))
-			throw new Exception($"Faculty with name {name} is already exists!");
+			throw new PublicationHouseException($"Faculty with name {name} is already exists!", EnumErrorCode.EntityIsAlreadyExists);
 
 		var faculty = new Faculty
 		{
@@ -47,7 +49,8 @@ public class FacultyService : IFacultyService
 
 	public async Task<Faculty?> GetFacultyAsync(long facultyId)
 	{
-		return await _db.Faculties.FirstOrDefaultAsync(x => x.Id == facultyId) ?? throw new Exception($"Faculty {facultyId} is not found!");
+		return await _db.Faculties.FirstOrDefaultAsync(x => x.Id == facultyId) 
+		       ?? throw new PublicationHouseException($"Faculty {facultyId} is not found!", EnumErrorCode.EntityIsNotFound);
 	}
 
 	public async Task RenameFacultyAsync(long facultyId, string name)
@@ -55,7 +58,7 @@ public class FacultyService : IFacultyService
 		var faculty = await _db.Faculties.FirstOrDefaultAsync(x => x.Id == facultyId);
 
 		if (faculty is null)
-			throw new Exception("Faculty is not exists!");
+			throw new PublicationHouseException("Faculty is not exists!", EnumErrorCode.EntityIsNotFound);
 
 		faculty.Name = name;
 		await _db.SaveChangesAsync();
@@ -64,7 +67,7 @@ public class FacultyService : IFacultyService
 	public async Task DeleteFacultyAsync(long facultyId)
 	{
 		if (await _db.Faculties.AnyAsync(x => x.Id == facultyId))
-			throw new Exception("Faculty is not exists!");
+			throw new PublicationHouseException("Faculty is not exists!", EnumErrorCode.EntityIsNotFound);
 
 		_db.Faculties.Remove(new Faculty {Id = facultyId});
 		await _db.SaveChangesAsync();

@@ -1,4 +1,4 @@
-﻿using PublishingHouse.Interfaces.Exstensions.Pagination;
+﻿using PublishingHouse.Interfaces.Extensions.Pagination;
 
 namespace PublishingHouse.Interfaces.Model.Reviewer;
 

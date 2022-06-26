@@ -4,7 +4,9 @@ using PublishingHouse.Data;
 using PublishingHouse.Data.Models;
 using PublishingHouse.External.Mail;
 using PublishingHouse.Interfaces;
-using PublishingHouse.Interfaces.Exstensions.Pagination;
+using PublishingHouse.Interfaces.Enums;
+using PublishingHouse.Interfaces.Extensions.Pagination;
+using PublishingHouse.Interfaces.Model;
 using PublishingHouse.Interfaces.Model.Publication;
 using PublishingHouse.StorageEnums;
 
@@ -79,7 +81,7 @@ public class PublicationService : IPublicationService
 	{
 		var publication = await _db.Publications.FirstOrDefaultAsync(x => x.Id == model.PublicationId);
 		if (publication == null)
-			throw new Exception($"Publication id = {model.PublicationId} is not found");
+			throw new PublicationHouseException($"Publication id = {model.PublicationId} is not found", EnumErrorCode.EntityIsNotFound);
 
 		if (!string.IsNullOrWhiteSpace(model.Name))
 			publication.Name = model.Name;
@@ -105,7 +107,7 @@ public class PublicationService : IPublicationService
 	{
 		var publication = await _db.Publications.FirstOrDefaultAsync(x => x.Id == publicationId);
 		if (publication == null)
-			throw new Exception($"Publication id = {publicationId} is not found");
+			throw new PublicationHouseException($"Publication id = {publicationId} is not found", EnumErrorCode.EntityIsNotFound);
 
 		publication.Status = status;
 		await _db.SaveChangesAsync();
@@ -116,7 +118,7 @@ public class PublicationService : IPublicationService
 		var reviewer = await _db.Reviewers.FirstOrDefaultAsync(x => x.Id == publication.ReviewerId);
 
 		if (string.IsNullOrWhiteSpace(reviewer?.Email) || !MailService.IsValidEmailAddress(reviewer.Email))
-			throw new Exception("Reviewer email is not valid!");
+			throw new PublicationHouseException("Reviewer email is not valid!", EnumErrorCode.EmailIsNotValid);
 
 		var host = Dns.GetHostName(); //todo make it normally
 

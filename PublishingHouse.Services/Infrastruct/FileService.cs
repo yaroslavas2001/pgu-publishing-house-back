@@ -1,7 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PublishingHouse.Data;
 using PublishingHouse.Interfaces;
-using PublishingHouse.Interfaces.Exstensions;
+using PublishingHouse.Interfaces.Enums;
+using PublishingHouse.Interfaces.Extensions;
+using PublishingHouse.Interfaces.Model;
 using PublishingHouse.Interfaces.Model.Files;
 
 namespace PublishingHouse.Services.Infrastruct;
@@ -59,7 +61,7 @@ public class FileService : IFileService
 		bool isReviewer)
 	{
 		if (await _db.Publications.AllAsync(x => x.Id != publicationId))
-			throw new Exception($"Publication id = {publicationId} is not exists!");
+			throw new PublicationHouseException($"Publication id = {publicationId} is not exists!", EnumErrorCode.EntityIsNotFound);
 
 		var query = _db.Files.AsQueryable();
 		if (isReviewer)

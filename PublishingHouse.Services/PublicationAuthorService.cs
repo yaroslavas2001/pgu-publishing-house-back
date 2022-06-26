@@ -2,6 +2,8 @@
 using PublishingHouse.Data;
 using PublishingHouse.Data.Models;
 using PublishingHouse.Interfaces;
+using PublishingHouse.Interfaces.Enums;
+using PublishingHouse.Interfaces.Model;
 
 namespace PublishingHouse.Services;
 
@@ -17,10 +19,10 @@ public class PublicationAuthorService : IPublicationAuthorService
 	public async Task SetPublicationAuthorAsync(long publicationId, long authorId)
 	{
 		if (await _db.Publications.AllAsync(x => x.Id != publicationId))
-			throw new Exception($"Publication id = {publicationId} is not exists!");
+			throw new PublicationHouseException($"Publication id = {publicationId} is not exists!", EnumErrorCode.EntityIsNotFound);
 
 		if (await _db.Authors.AllAsync(x => x.Id != authorId))
-			throw new Exception($"Authors id = {authorId} is not exists!");
+			throw new PublicationHouseException($"Authors id = {authorId} is not exists!", EnumErrorCode.EntityIsNotFound);
 
 		if (!await _db.PublicationsAuthors.AnyAsync(x => x.AuthorId == authorId && x.PublicationId == publicationId))
 		{
@@ -42,10 +44,10 @@ public class PublicationAuthorService : IPublicationAuthorService
 	public async Task RemovePublicationAuthorAsync(long publicationId, long authorId)
 	{
 		if (await _db.Publications.AllAsync(x => x.Id != publicationId))
-			throw new Exception($"Publication id = {publicationId} is not exists!");
+			throw new PublicationHouseException($"Publication id = {publicationId} is not exists!", EnumErrorCode.EntityIsNotFound);
 
 		if (await _db.Authors.AllAsync(x => x.Id != authorId))
-			throw new Exception($"Authors id = {authorId} is not exists!");
+			throw new PublicationHouseException($"Authors id = {authorId} is not exists!", EnumErrorCode.EntityIsNotFound);
 
 		var publicationAuthor = await _db.PublicationsAuthors
 			.FirstOrDefaultAsync(x => x.AuthorId == authorId && x.PublicationId == publicationId);

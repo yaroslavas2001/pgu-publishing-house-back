@@ -7,6 +7,7 @@ using PublishingHouse.Data.Models;
 using PublishingHouse.External.Mail;
 using PublishingHouse.External.Mail.Request;
 using PublishingHouse.Interfaces;
+using PublishingHouse.Interfaces.Enums;
 using PublishingHouse.Interfaces.Model;
 using PublishingHouse.Interfaces.Model.Auth;
 using PublishingHouse.Services.Infrastruct;
@@ -26,15 +27,18 @@ public class AuthService : IAuthService
 
 	public async Task<BaseResponse<LoginResponse>> Login(LoginRequest request)
 	{
-		if (string.IsNullOrWhiteSpace(request.Password) || string.IsNullOrWhiteSpace(request.Email))
-			throw new Exception("Email and password are required!");
+		if (string.IsNullOrWhiteSpace(request.Password))
+			throw new PublicationHouseException(EnumErrorCode.PasswordIsAreRequired);
+
+		if (string.IsNullOrWhiteSpace(request.Email))
+			throw new PublicationHouseException(EnumErrorCode.EmailAreRequired);
 
 		var user = await _db.Users.FirstOrDefaultAsync(x => x.Email == request.Email.ToLower());
 		if (user == null || user.Status is EnumUserStatus.New or EnumUserStatus.Blocked)
-			throw new Exception("Access denied!");
+			throw new PublicationHouseException(EnumErrorCode.AccessDenied);
 
 		if (user.PasswordHash != PasswordHashService.GetHashPassword(request.Password, user.PasswordKey))
-			throw new Exception("Password are incorrect");
+			throw new PublicationHouseException("Password are incorrect", EnumErrorCode.AccessDenied);
 
 		var response = new LoginResponse
 		{
@@ -51,19 +55,19 @@ public class AuthService : IAuthService
 	public async Task<BaseResponse> Register(RegisterRequest request)
 	{
 		if (await _db.Users.AnyAsync(x => x.Email == request.Email))
-			throw new Exception("Email занят");
+			throw new PublicationHouseException(EnumErrorCode.MailIsAlreadyInUse);
 
 		if (string.IsNullOrWhiteSpace(request.Email))
-			throw new Exception("Email обязателен");
+			throw new PublicationHouseException(EnumErrorCode.EmailAreRequired);
 
 		if (string.IsNullOrWhiteSpace(request.Password))
-			throw new Exception("Пароль обязателен");
+			throw new PublicationHouseException(EnumErrorCode.PasswordIsAreRequired);
 
 		if (string.IsNullOrWhiteSpace(request.ConfirmPassword))
-			throw new Exception("Повтор пароль обязателен");
+			throw new PublicationHouseException(EnumErrorCode.PasswordIsAreRequired);
 
 		if (request.Password != request.ConfirmPassword)
-			throw new Exception("Пароли не совпали(");
+			throw new PublicationHouseException(EnumErrorCode.PasswordsDoNotMatch);
 
 		var guidEmail = Guid.NewGuid();
 		var password = PasswordHashService.GenHashPassword(request.Password);
@@ -71,15 +75,15 @@ public class AuthService : IAuthService
 		var user = new User
 		{
 			Email = request.Email,
-			SureName = request.SureName ?? string.Empty,
-			FirstName = request.FirstName ?? string.Empty,
-			LastName = request.LastName ?? string.Empty,
+			SureName = request.SureName,
+			FirstName = request.FirstName,
+			LastName = request.LastName,
 			Status = EnumUserStatus.New,
 			Role = EnumUserRole.User,
 			PasswordKey = password.Key,
 			PasswordHash = password.Hash
 		};
-		
+
 		var token = new MailToken
 		{
 			DateExpire = DateTime.UtcNow.AddDays(5),
@@ -104,19 +108,22 @@ public class AuthService : IAuthService
 		var dateExpire = DateTime.UtcNow;
 		var user = await _db.Users.FirstOrDefaultAsync(x =>
 			x.Tokens.Any(z => z.Key == request.Key && z.DateExpire > dateExpire));
-		if (user == null)
-			throw new Exception("Токен не найден");
+
+		if (user is null)
+			throw new PublicationHouseException(EnumErrorCode.TokenIsNotFound);
+
 		user.Status = EnumUserStatus.Verified;
 		await _db.SaveChangesAsync();
+
 		return new BaseResponse<TokenResponse>(await GenerateToken(user.Id));
 	}
 
 	private async Task<TokenResponse> GenerateToken(long id)
 	{
-		(User user, ClaimsIdentity claim) identity;
-		identity = await GetIdentity(id);
+		(User user, ClaimsIdentity claim) identity = await GetIdentity(id);
 		if (identity.user is null)
-			throw new Exception("User Not Found");
+			throw new PublicationHouseException( "User is not found!", EnumErrorCode.EntityIsNotFound);
+
 		var now = DateTime.UtcNow;
 		var jwt = new JwtSecurityToken(
 			AuthOptions.ISSUER,
@@ -126,23 +133,21 @@ public class AuthService : IAuthService
 			expires: now.Add(TimeSpan.FromMinutes(AuthOptions.LIFETIME)),
 			signingCredentials: new SigningCredentials(AuthOptions.GetSymmetricSecurityKey(),
 				SecurityAlgorithms.HmacSha256));
+
 		var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
-		return new TokenResponse
-		{
-			Token = encodedJwt
-		};
+		return new TokenResponse { Token = encodedJwt };
 	}
 
 	private async Task<(User, ClaimsIdentity)> GetIdentity(long id)
 	{
 		var person = await _db.Users.FindAsync(id);
 		if (person is null)
-			throw new Exception("Пользователь не найден");
+			throw new PublicationHouseException("User is not found!", EnumErrorCode.EntityIsNotFound);
 
 		if (person.Status == EnumUserStatus.Blocked)
-			throw new Exception("Пользователь заблокирован");
+			throw new PublicationHouseException(EnumErrorCode.UserIsBlocked);
 
-		var claims = new List<Claim> {new(ClaimTypes.Name, person.Id.ToString())};
+		var claims = new List<Claim> { new(ClaimTypes.Name, person.Id.ToString()) };
 		var claimsIdentity =
 			new ClaimsIdentity(claims, "TokenResponse", ClaimsIdentity.DefaultNameClaimType,
 				ClaimsIdentity.DefaultRoleClaimType);
