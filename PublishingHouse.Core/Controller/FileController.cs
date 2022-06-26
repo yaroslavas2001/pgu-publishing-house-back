@@ -2,6 +2,7 @@
 using PublishingHouse.Interfaces;
 using PublishingHouse.Interfaces.Model;
 using PublishingHouse.Interfaces.Model.Files;
+using System.ComponentModel.DataAnnotations;
 
 namespace PublishingHouse.Controller;
 
@@ -43,7 +44,7 @@ public class FileController : Microsoft.AspNetCore.Mvc.Controller
 	[ProducesResponseType(200, Type = typeof(BaseResponse<IReadOnlyCollection<PublicationFileModel>>))]
 	[ProducesResponseType(400, Type = typeof(BaseResponse))]
 	public async Task<BaseResponse<IReadOnlyCollection<PublicationFileModel>>> Get([FromServices] IFileService service,
-		[FromQuery] long publicationId, [FromQuery] bool isReviewer)
+		[Required][FromQuery] long publicationId, [FromQuery] bool isReviewer)
 	{
 		var files = await service.GetPublicationFilesAsync(publicationId, isReviewer);
 		return new BaseResponse<IReadOnlyCollection<PublicationFileModel>>(files);

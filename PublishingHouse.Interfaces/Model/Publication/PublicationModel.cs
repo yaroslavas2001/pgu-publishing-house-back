@@ -4,7 +4,8 @@ namespace PublishingHouse.Interfaces.Model.Publication;
 
 public class PublicationModel
 {
-	public string UDC;
+	public string UDC { get; set; }
+
 	public long Id { get; set; }
 
 	public string Name { get; set; }
