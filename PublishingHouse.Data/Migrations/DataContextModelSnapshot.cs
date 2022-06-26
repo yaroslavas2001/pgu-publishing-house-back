@@ -72,7 +72,7 @@ namespace PublishingHouse.Data.Migrations
 
                     b.HasIndex("DepartmentId");
 
-                    b.ToTable("Authors");
+                    b.ToTable("Authors", (string)null);
                 });
 
             modelBuilder.Entity("PublishingHouse.Data.Models.Department", b =>
@@ -94,7 +94,7 @@ namespace PublishingHouse.Data.Migrations
 
                     b.HasIndex("FacultyId");
 
-                    b.ToTable("Departments");
+                    b.ToTable("Departments", (string)null);
                 });
 
             modelBuilder.Entity("PublishingHouse.Data.Models.Faculty", b =>
@@ -111,7 +111,7 @@ namespace PublishingHouse.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Faculties");
+                    b.ToTable("Faculties", (string)null);
                 });
 
             modelBuilder.Entity("PublishingHouse.Data.Models.File", b =>
@@ -148,7 +148,7 @@ namespace PublishingHouse.Data.Migrations
 
                     b.HasIndex("ReviewId");
 
-                    b.ToTable("Files");
+                    b.ToTable("Files", (string)null);
                 });
 
             modelBuilder.Entity("PublishingHouse.Data.Models.MailToken", b =>
@@ -172,7 +172,7 @@ namespace PublishingHouse.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("MailToken");
+                    b.ToTable("MailToken", (string)null);
                 });
 
             modelBuilder.Entity("PublishingHouse.Data.Models.Publication", b =>
@@ -213,7 +213,7 @@ namespace PublishingHouse.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Publications");
+                    b.ToTable("Publications", (string)null);
                 });
 
             modelBuilder.Entity("PublishingHouse.Data.Models.PublicationAuthors", b =>
@@ -228,7 +228,7 @@ namespace PublishingHouse.Data.Migrations
 
                     b.HasIndex("PublicationId");
 
-                    b.ToTable("PublicationsAuthors");
+                    b.ToTable("PublicationsAuthors", (string)null);
                 });
 
             modelBuilder.Entity("PublishingHouse.Data.Models.Review", b =>
@@ -250,7 +250,7 @@ namespace PublishingHouse.Data.Migrations
 
                     b.HasIndex("PublicationId");
 
-                    b.ToTable("Reviews");
+                    b.ToTable("Reviews", (string)null);
                 });
 
             modelBuilder.Entity("PublishingHouse.Data.Models.Reviewer", b =>
@@ -279,7 +279,7 @@ namespace PublishingHouse.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Reviewers");
+                    b.ToTable("Reviewers", (string)null);
                 });
 
             modelBuilder.Entity("PublishingHouse.Data.Models.User", b =>
@@ -322,7 +322,7 @@ namespace PublishingHouse.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", (string)null);
                 });
 
             modelBuilder.Entity("PublishingHouse.Data.Models.Author", b =>
