@@ -16,25 +16,25 @@ public class AuthController : Microsoft.AspNetCore.Mvc.Controller
 	[Route($"{nameof(Login)}")]
 	[ProducesResponseType(200, Type = typeof(BaseResponse<LoginResponse>))]
 	[ProducesResponseType(400, Type = typeof(BaseResponse))]
-	public async Task<BaseResponse<LoginResponse>> Login([FromServices] IAuthService auth, LoginRequest request)
+	public async Task<BaseResponse<LoginResponse>> Login([FromServices] IAuthService auth, [FromBody] LoginRequest request)
 	{
 		return await auth.Login(request);
 	}
 
-	[HttpPost]
+	[HttpPut]
 	[Route($"{nameof(Register)}")]
 	[ProducesResponseType(200, Type = typeof(BaseResponse))]
 	[ProducesResponseType(400, Type = typeof(BaseResponse))]
-	public async Task<BaseResponse> Register([FromServices] IAuthService auth, RegisterRequest request)
+	public async Task<BaseResponse> Register([FromServices] IAuthService auth, [FromBody] RegisterRequest request)
 	{
 		return await auth.Register(request);
 	}
 
-	[HttpPost]
+	[HttpPatch]
 	[Route($"{nameof(ActivateAccount)}")]
 	[ProducesResponseType(200, Type = typeof(BaseResponse<TokenResponse>))]
 	[ProducesResponseType(400, Type = typeof(BaseResponse))]
-	public async Task<BaseResponse> ActivateAccount([FromServices] IAuthService auth, ActivateAccountRequest request)
+	public async Task<BaseResponse> ActivateAccount([FromServices] IAuthService auth, [FromBody] ActivateAccountRequest request)
 	{
 		return await auth.ActivateAccount(request);
 	}
