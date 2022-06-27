@@ -135,7 +135,7 @@ public class AuthService : IAuthService
 				SecurityAlgorithms.HmacSha256));
 
 		var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
-		return new TokenResponse { Token = encodedJwt };
+		return new TokenResponse { Token = $"Bearer {encodedJwt}" };
 	}
 
 	private async Task<(User, ClaimsIdentity)> GetIdentity(long id)

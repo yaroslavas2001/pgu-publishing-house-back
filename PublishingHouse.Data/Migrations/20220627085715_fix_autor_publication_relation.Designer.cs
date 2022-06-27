@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PublishingHouse.Data;
 
@@ -11,9 +12,10 @@ using PublishingHouse.Data;
 namespace PublishingHouse.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20220627085715_fix_autor_publication_relation")]
+    partial class fix_autor_publication_relation
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -72,7 +74,7 @@ namespace PublishingHouse.Data.Migrations
 
                     b.HasIndex("DepartmentId");
 
-                    b.ToTable("Authors", (string)null);
+                    b.ToTable("Authors");
                 });
 
             modelBuilder.Entity("PublishingHouse.Data.Models.Department", b =>
@@ -94,7 +96,7 @@ namespace PublishingHouse.Data.Migrations
 
                     b.HasIndex("FacultyId");
 
-                    b.ToTable("Departments", (string)null);
+                    b.ToTable("Departments");
                 });
 
             modelBuilder.Entity("PublishingHouse.Data.Models.Faculty", b =>
@@ -111,7 +113,7 @@ namespace PublishingHouse.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Faculties", (string)null);
+                    b.ToTable("Faculties");
                 });
 
             modelBuilder.Entity("PublishingHouse.Data.Models.File", b =>
@@ -148,7 +150,7 @@ namespace PublishingHouse.Data.Migrations
 
                     b.HasIndex("ReviewId");
 
-                    b.ToTable("Files", (string)null);
+                    b.ToTable("Files");
                 });
 
             modelBuilder.Entity("PublishingHouse.Data.Models.MailToken", b =>
@@ -172,7 +174,7 @@ namespace PublishingHouse.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("MailToken", (string)null);
+                    b.ToTable("MailToken");
                 });
 
             modelBuilder.Entity("PublishingHouse.Data.Models.Publication", b =>
@@ -213,7 +215,7 @@ namespace PublishingHouse.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Publications", (string)null);
+                    b.ToTable("Publications");
                 });
 
             modelBuilder.Entity("PublishingHouse.Data.Models.PublicationAuthors", b =>
@@ -228,7 +230,7 @@ namespace PublishingHouse.Data.Migrations
 
                     b.HasIndex("PublicationId");
 
-                    b.ToTable("PublicationsAuthors", (string)null);
+                    b.ToTable("PublicationsAuthors");
                 });
 
             modelBuilder.Entity("PublishingHouse.Data.Models.Review", b =>
@@ -250,7 +252,7 @@ namespace PublishingHouse.Data.Migrations
 
                     b.HasIndex("PublicationId");
 
-                    b.ToTable("Reviews", (string)null);
+                    b.ToTable("Reviews");
                 });
 
             modelBuilder.Entity("PublishingHouse.Data.Models.Reviewer", b =>
@@ -279,7 +281,7 @@ namespace PublishingHouse.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Reviewers", (string)null);
+                    b.ToTable("Reviewers");
                 });
 
             modelBuilder.Entity("PublishingHouse.Data.Models.User", b =>
@@ -322,7 +324,7 @@ namespace PublishingHouse.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users", (string)null);
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("PublishingHouse.Data.Models.Author", b =>

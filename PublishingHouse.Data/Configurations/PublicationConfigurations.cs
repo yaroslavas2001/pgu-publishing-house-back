@@ -11,11 +11,6 @@ public class PublicationConfigurations : IEntityTypeConfiguration<Publication>
 		builder.HasKey(x => x.Id);
 
 		builder
-			.HasMany(x => x.Files)
-			.WithOne(x => x.Publication)
-			.HasForeignKey(x => x.PublicationId);
-
-		builder
 			.HasOne(x => x.User)
 			.WithMany(x => x.Publications)
 			.HasForeignKey(x => x.UserId);

@@ -27,7 +27,7 @@ public class PublicationController : Microsoft.AspNetCore.Mvc.Controller
 	/// <param name="model"></param>
 	/// <returns></returns>
 	[HttpPost]
-	//[Authorize]
+	[Authorize]
 	[Route($"{nameof(Add)}")]
 	[ProducesResponseType(200, Type = typeof(BaseResponse<long>))]
 	[ProducesResponseType(400, Type = typeof(BaseResponse))]
@@ -59,7 +59,7 @@ public class PublicationController : Microsoft.AspNetCore.Mvc.Controller
 	/// <param name="status"></param>
 	/// <returns></returns>
 	[HttpPatch]
-	//[Authorize]
+	[Authorize]
 	[Route($"{nameof(SetStatus)}")]
 	[ProducesResponseType(200, Type = typeof(BaseResponse))]
 	[ProducesResponseType(400, Type = typeof(BaseResponse))]
@@ -75,7 +75,7 @@ public class PublicationController : Microsoft.AspNetCore.Mvc.Controller
 	/// <param name="model"></param>
 	/// <returns></returns>
 	[HttpPatch]
-	//[Authorize]
+	[Authorize]
 	[Route($"{nameof(Update)}")]
 	[ProducesResponseType(200, Type = typeof(BaseResponse))]
 	[ProducesResponseType(400, Type = typeof(BaseResponse))]
