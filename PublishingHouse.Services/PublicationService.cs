@@ -129,7 +129,7 @@ public class PublicationService : IPublicationService
 		{
 			new( "@Reviewer", $" {reviewer.SureName} {reviewer.FirstName} {reviewer.LastName}"),
 			new( "@Publication", $"{publication.Name}"),
-			new( "@Url", $"{host}\\Publication\\get?publicationId={publication.Id}")
+			new( "@Url", $"{host}/publication/{publication.Id}")
 		};
 
 		await _mailService.SendEvent(reviewer.Email, "addReviewer", emailParams);

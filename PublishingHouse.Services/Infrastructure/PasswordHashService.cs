@@ -1,7 +1,7 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
 
-namespace PublishingHouse.Services.Infrastruct;
+namespace PublishingHouse.Services.Infrastructure;
 
 public static class PasswordHashService
 {

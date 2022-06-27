@@ -8,7 +8,7 @@ using PublishingHouse.Interfaces.Model;
 namespace PublishingHouse.External.Mail;
 
 /// <summary>
-///     Todo Статика пока не заплатят
+/// Demo version
 /// </summary>
 public class MailService
 {
@@ -26,8 +26,7 @@ public class MailService
 		new()
 		{
 			{
-				"registered",
-				($@"{BaseDir}\wwwroot\EmailTriggers\registered.html", "Welcome")
+				"registered", ($@"{BaseDir}\wwwroot\EmailTriggers\registered.html", "Welcome")
 			},
 			{
 				"addReviewer",($@"{BaseDir}\wwwroot\EmailTriggers\addreviewer.html", "You were attached as a publication reviewer!")
@@ -62,6 +61,7 @@ public class MailService
 				IsBodyHtml = true,
 				Body = message
 			};
+
 			mail.To.Add(new MailAddress(Regex.Replace(mailto, @"\+(.*)\@", "@")));
 
 			var client = new SmtpClient
@@ -75,7 +75,7 @@ public class MailService
 				Port = 587,
 				UseDefaultCredentials = false,
 				Credentials = new NetworkCredential(From, Password),
-				DeliveryMethod = SmtpDeliveryMethod.Network,
+				DeliveryMethod = SmtpDeliveryMethod.Network
 			};
 			client.Send(mail);
 		}

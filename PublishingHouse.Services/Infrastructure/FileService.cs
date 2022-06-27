@@ -6,7 +6,7 @@ using PublishingHouse.Interfaces.Extensions;
 using PublishingHouse.Interfaces.Model;
 using PublishingHouse.Interfaces.Model.Files;
 
-namespace PublishingHouse.Services.Infrastruct;
+namespace PublishingHouse.Services.Infrastructure;
 
 public class FileService : IFileService
 {
@@ -39,7 +39,7 @@ public class FileService : IFileService
 			var file = new Data.Models.File
 			{
 				IsVisibleForReviewers = model.IsVisibleForReviewers,
-				Name = path,
+				Name = model.Name,
 				Type = model.FileType,
 				PublicationId = model.PublicationId,
 				Url = path.ConvertServerPathToUri()
@@ -61,7 +61,8 @@ public class FileService : IFileService
 		bool isReviewer)
 	{
 		if (await _db.Publications.AllAsync(x => x.Id != publicationId))
-			throw new PublicationHouseException($"Publication id = {publicationId} is not exists!", EnumErrorCode.EntityIsNotFound);
+			throw new PublicationHouseException($"Publication id = {publicationId} is not exists!",
+				EnumErrorCode.EntityIsNotFound);
 
 		var query = _db.Files.AsQueryable();
 		if (isReviewer)
