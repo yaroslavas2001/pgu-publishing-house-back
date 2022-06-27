@@ -6,7 +6,7 @@ using PublishingHouse.Interfaces.Extensions;
 using PublishingHouse.Interfaces.Model;
 using PublishingHouse.Interfaces.Model.Files;
 
-namespace PublishingHouse.Services.Infrastruct;
+namespace PublishingHouse.Services.Infrastructure;
 
 public class FileService : IFileService
 {

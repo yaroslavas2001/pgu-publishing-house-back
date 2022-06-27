@@ -10,7 +10,7 @@ using PublishingHouse.Interfaces;
 using PublishingHouse.Interfaces.Enums;
 using PublishingHouse.Interfaces.Model;
 using PublishingHouse.Interfaces.Model.Auth;
-using PublishingHouse.Services.Infrastruct;
+using PublishingHouse.Services.Infrastructure;
 using PublishingHouse.StorageEnums;
 
 namespace PublishingHouse.Services;
