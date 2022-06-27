@@ -30,8 +30,8 @@ public class PublicationAuthorService : IPublicationAuthorService
         {
             await _db.PublicationsAuthors.AddAsync(new PublicationAuthors
             {
+                Publication = publication,
                 Author = author, 
-                Publication = publication
             });
 
             await _db.SaveChangesAsync();
