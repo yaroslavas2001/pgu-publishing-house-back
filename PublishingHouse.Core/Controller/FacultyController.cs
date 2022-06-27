@@ -32,7 +32,7 @@ public class FacultyController : Microsoft.AspNetCore.Mvc.Controller
 	[Route($"{nameof(Add)}")]
 	[ProducesResponseType(200, Type = typeof(BaseResponse<long>))]
 	[ProducesResponseType(400, Type = typeof(BaseResponse))]
-	//[Authorize]
+	[Authorize]
 	public async Task<BaseResponse<long>> Add([FromBody] AddFacultyRequest model)
 	{
 		var result = await _faculty.CreateFacultyAsync(model.Name);
@@ -75,7 +75,7 @@ public class FacultyController : Microsoft.AspNetCore.Mvc.Controller
 	[Route($"{nameof(Rename)}")]
 	[ProducesResponseType(200, Type = typeof(BaseResponse))]
 	[ProducesResponseType(400, Type = typeof(BaseResponse))]
-	//[Authorize]
+	[Authorize]
 	public async Task<BaseResponse> Rename([FromQuery] long id, [FromQuery] string name)
 	{
 		await _faculty.RenameFacultyAsync(id, name);
@@ -90,7 +90,7 @@ public class FacultyController : Microsoft.AspNetCore.Mvc.Controller
 	[Route($"{nameof(Delete)}")]
 	[ProducesResponseType(200, Type = typeof(BaseResponse))]
 	[ProducesResponseType(400, Type = typeof(BaseResponse))]
-	//[Authorize]
+	[Authorize]
 	public async Task<BaseResponse> Delete([FromQuery] long id)
 	{
 		await _faculty.DeleteFacultyAsync(id);
