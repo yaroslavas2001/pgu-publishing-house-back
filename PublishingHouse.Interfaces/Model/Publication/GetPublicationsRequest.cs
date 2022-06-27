@@ -17,5 +17,7 @@ public class GetPublicationsRequest : IPaginationRequest
 
 	public long? ReviewerId { get; set; }
 
+	public bool ExcludeDraft { get; set; } = false;
+
 	public Page Page { get; set; } = new Page();
 }

@@ -15,6 +15,8 @@ public class MailService
 	private static string From => "richlifedevelop@gmail.com";
 	private static string Password => "8r5h4tx$Kdeq?z8s";
 
+	private static readonly string BaseDir = Directory.GetCurrentDirectory();
+
 	private static List<(string, string)> ReplaceList => new()
 	{
 		("domain", "http://31.31.24.200:5051")
@@ -25,12 +27,10 @@ public class MailService
 		{
 			{
 				"registered",
-				(@"D:\Projects\pgu-publishing-house-back\PublishingHouse.Core\wwwroot\EmailTriggers\registered.html" /*"wwwroot\\EmailTriggers\\registered.html"*/,
-					"Welcome")
+				($@"{BaseDir}\wwwroot\EmailTriggers\registered.html", "Welcome")
 			},
 			{
-				"addReviewer",(@"D:\Projects\pgu-publishing-house-back\PublishingHouse.Core\wwwroot\EmailTriggers\addreviewer.html" /*"wwwroot\\EmailTriggers\\addreviewer.html"*/,
-					"You were attached as a publication reviewer!")
+				"addReviewer",($@"{BaseDir}\wwwroot\EmailTriggers\addreviewer.html", "You were attached as a publication reviewer!")
 			}
 		};
 

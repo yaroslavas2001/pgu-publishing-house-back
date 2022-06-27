@@ -63,6 +63,9 @@ public class PublicationService : IPublicationService
 				x.Name.ToLower().Contains(request.Search.ToLower())
 				|| x.Tags.ToLower().Contains(request.Search.ToLower()));
 
+		if (request.ExcludeDraft)
+			query = query.Where(x => x.Status != EnumPublicationStatus.Draft);
+
 		return await query.GetPageAsync<GetPublicationResponse, Publication, PublicationModel>(request,
 			x => new PublicationModel
 			{
