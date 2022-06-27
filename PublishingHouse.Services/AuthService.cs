@@ -122,7 +122,7 @@ public class AuthService : IAuthService
 	{
 		(User user, ClaimsIdentity claim) identity = await GetIdentity(id);
 		if (identity.user is null)
-			throw new PublicationHouseException( "User is not found!", EnumErrorCode.EntityIsNotFound);
+			throw new PublicationHouseException("User is not found!", EnumErrorCode.EntityIsNotFound);
 
 		var now = DateTime.UtcNow;
 		var jwt = new JwtSecurityToken(
@@ -135,7 +135,15 @@ public class AuthService : IAuthService
 				SecurityAlgorithms.HmacSha256));
 
 		var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
-		return new TokenResponse { Token = $"Bearer {encodedJwt}" };
+
+		return new TokenResponse
+		{
+			UserId = identity.user.Id,
+			FirstName = identity.user.FirstName,
+			LastName = identity.user.LastName,
+			SureName = identity.user.SureName,
+			Token = $"Bearer {encodedJwt}"
+		};
 	}
 
 	private async Task<(User, ClaimsIdentity)> GetIdentity(long id)
