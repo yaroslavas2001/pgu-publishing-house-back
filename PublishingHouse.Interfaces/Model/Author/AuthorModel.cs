@@ -25,4 +25,6 @@ public class AuthorModel
 	public string? NonStuffPosition { get; set; }
 
 	public string? NonStuffWorkPlace { get; set; }
+	
+	public long Id { get; set; }
 }

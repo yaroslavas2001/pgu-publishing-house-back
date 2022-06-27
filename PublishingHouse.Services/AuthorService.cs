@@ -84,6 +84,7 @@ public class AuthorService : IAuthorService
 
 		return await query.GetPageAsync<GetAuthorResponse, Author, AuthorModel>(request, x => new AuthorModel
 		{
+			Id = x.Id,
 			SureName = x.SureName,
 			FirstName = x.FirstName,
 			SecondName = x.LastName,
