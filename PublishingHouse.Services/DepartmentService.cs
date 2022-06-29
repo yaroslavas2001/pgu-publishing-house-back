@@ -52,6 +52,23 @@ public class DepartmentService : IDepartmentService
 		return result;
 	}
 
+	public async Task<GetDepartmentsResponse> GetDepartment(GetDepartmentRequest request)
+	{
+		var query = request.DepartmanetId.HasValue
+			? _db.Departments.Where(x => x.Id == request.DepartmanetId)
+			: _db.Departments.AsQueryable();
+
+		var result = await query.GetPageAsync<GetDepartmentsResponse, Department, DepartmentModel>(request, x =>
+			new DepartmentModel
+			{
+				Id = x.Id,
+				FacultyId = x.FacultyId,
+				DepartmentName = x.Name
+			});
+
+		return result;
+	}
+
 	public async Task RenameDepartment(long departmentId, string name)
 	{
 		var department = await _db.Departments.FirstOrDefaultAsync(x => x.Id == departmentId);

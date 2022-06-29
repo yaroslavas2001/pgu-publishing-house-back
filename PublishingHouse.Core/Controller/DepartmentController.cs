@@ -52,6 +52,19 @@ public class DepartmaneController : Microsoft.AspNetCore.Mvc.Controller
 		return new BaseResponse<GetDepartmentsResponse>(result);
 	}
 
+	/// <summary>
+	///     Получить название кафедры и факультета
+	/// </summary>
+	/// <returns></returns>
+	[HttpGet]
+	[Route($"{nameof(GetDepartment)}")]
+	[ProducesResponseType(200, Type = typeof(BaseResponse<IReadOnlyCollection<DepartmentModel>>))]
+	[ProducesResponseType(400, Type = typeof(BaseResponse))]
+	public async Task<BaseResponse<GetDepartmentsResponse>> GetDepartment([FromQuery] GetDepartmentRequest request)
+	{
+		var result = await _departmentService.GetDepartment(request);
+		return new BaseResponse<GetDepartmentsResponse>(result);
+	}
 
 	/// <summary>
 	///     Переименовать Кафедру

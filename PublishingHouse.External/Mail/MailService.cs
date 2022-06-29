@@ -12,8 +12,8 @@ namespace PublishingHouse.External.Mail;
 /// </summary>
 public class MailService
 {
-	private static string From => "richlifedevelop@gmail.com";
-	private static string Password => "8r5h4tx$Kdeq?z8s";
+	private static string From => "publishinghousepsu@gmail.com";
+	private static string Password => "o8R21se93HGm";
 
 	private static readonly string BaseDir = Directory.GetCurrentDirectory();
 
@@ -67,20 +67,21 @@ public class MailService
 			var client = new SmtpClient
 			{
 				Host = "smtp.gmail.com",
-#if DEBUG
-				EnableSsl = false,
-#else
+				//#if DEBUG
+				//EnableSsl = false,
+				//#else
 				EnableSsl = true,
-#endif
+				//#endif
 				Port = 587,
-				UseDefaultCredentials = false,
+				//UseDefaultCredentials = false,
 				Credentials = new NetworkCredential(From, Password),
-				DeliveryMethod = SmtpDeliveryMethod.Network
+				//DeliveryMethod = SmtpDeliveryMethod.Network
 			};
 			client.Send(mail);
 		}
 		catch (Exception)
 		{
+			
 			//_logger.Info("GMail not sent error:"+e.Message);
 		}
 	}

@@ -67,9 +67,9 @@ public class FileService : IFileService
 		var query = _db.Files.AsQueryable();
 		if (isReviewer)
 			query = query.Where(x => x.IsVisibleForReviewers == true);
-
+		//&& x.IsVisibleForReviewers
 		var files = await query
-			.Where(x => x.PublicationId == publicationId && x.IsVisibleForReviewers)
+			.Where(x => x.PublicationId == publicationId )
 			.Select(x => new PublicationFileModel
 			{
 				Name = x.Name,

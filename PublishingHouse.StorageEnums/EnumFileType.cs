@@ -41,4 +41,9 @@ public enum EnumFileType
 	/// Общее
 	/// </summary>
 	Abstract = 7,
+
+	/// <summary>
+	/// Рецензия
+	/// </summary>
+	 Review= 8,
 }

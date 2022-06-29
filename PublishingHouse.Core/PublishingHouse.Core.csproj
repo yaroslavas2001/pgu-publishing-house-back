@@ -13,6 +13,97 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <Compile Remove="wwwroot\files\04f7b67a\**" />
+	  <Compile Remove="wwwroot\files\066214c2\**" />
+	  <Compile Remove="wwwroot\files\0e720a0c\**" />
+	  <Compile Remove="wwwroot\files\14d17ff6\**" />
+	  <Compile Remove="wwwroot\files\1eff50f8\**" />
+	  <Compile Remove="wwwroot\files\264e65e9\**" />
+	  <Compile Remove="wwwroot\files\2a9f2a3d\**" />
+	  <Compile Remove="wwwroot\files\2c5711b4\**" />
+	  <Compile Remove="wwwroot\files\59a41a13\**" />
+	  <Compile Remove="wwwroot\files\5adb10d9\**" />
+	  <Compile Remove="wwwroot\files\5e51d5d6\**" />
+	  <Compile Remove="wwwroot\files\8375a050\**" />
+	  <Compile Remove="wwwroot\files\8dcae1c5\**" />
+	  <Compile Remove="wwwroot\files\9bd36036\**" />
+	  <Compile Remove="wwwroot\files\a51656ef\**" />
+	  <Compile Remove="wwwroot\files\b92e80a2\**" />
+	  <Compile Remove="wwwroot\files\c5178314\**" />
+	  <Compile Remove="wwwroot\files\df8ef441\**" />
+	  <Compile Remove="wwwroot\files\e1d9c401\**" />
+	  <Compile Remove="wwwroot\files\e67aae98\**" />
+	  <Compile Remove="wwwroot\files\eb10b42f\**" />
+	  <Compile Remove="wwwroot\files\f3bc5040\**" />
+	  <Content Remove="wwwroot\files\04f7b67a\**" />
+	  <Content Remove="wwwroot\files\066214c2\**" />
+	  <Content Remove="wwwroot\files\0e720a0c\**" />
+	  <Content Remove="wwwroot\files\14d17ff6\**" />
+	  <Content Remove="wwwroot\files\1eff50f8\**" />
+	  <Content Remove="wwwroot\files\264e65e9\**" />
+	  <Content Remove="wwwroot\files\2a9f2a3d\**" />
+	  <Content Remove="wwwroot\files\2c5711b4\**" />
+	  <Content Remove="wwwroot\files\59a41a13\**" />
+	  <Content Remove="wwwroot\files\5adb10d9\**" />
+	  <Content Remove="wwwroot\files\5e51d5d6\**" />
+	  <Content Remove="wwwroot\files\8375a050\**" />
+	  <Content Remove="wwwroot\files\8dcae1c5\**" />
+	  <Content Remove="wwwroot\files\9bd36036\**" />
+	  <Content Remove="wwwroot\files\a51656ef\**" />
+	  <Content Remove="wwwroot\files\b92e80a2\**" />
+	  <Content Remove="wwwroot\files\c5178314\**" />
+	  <Content Remove="wwwroot\files\df8ef441\**" />
+	  <Content Remove="wwwroot\files\e1d9c401\**" />
+	  <Content Remove="wwwroot\files\e67aae98\**" />
+	  <Content Remove="wwwroot\files\eb10b42f\**" />
+	  <Content Remove="wwwroot\files\f3bc5040\**" />
+	  <EmbeddedResource Remove="wwwroot\files\04f7b67a\**" />
+	  <EmbeddedResource Remove="wwwroot\files\066214c2\**" />
+	  <EmbeddedResource Remove="wwwroot\files\0e720a0c\**" />
+	  <EmbeddedResource Remove="wwwroot\files\14d17ff6\**" />
+	  <EmbeddedResource Remove="wwwroot\files\1eff50f8\**" />
+	  <EmbeddedResource Remove="wwwroot\files\264e65e9\**" />
+	  <EmbeddedResource Remove="wwwroot\files\2a9f2a3d\**" />
+	  <EmbeddedResource Remove="wwwroot\files\2c5711b4\**" />
+	  <EmbeddedResource Remove="wwwroot\files\59a41a13\**" />
+	  <EmbeddedResource Remove="wwwroot\files\5adb10d9\**" />
+	  <EmbeddedResource Remove="wwwroot\files\5e51d5d6\**" />
+	  <EmbeddedResource Remove="wwwroot\files\8375a050\**" />
+	  <EmbeddedResource Remove="wwwroot\files\8dcae1c5\**" />
+	  <EmbeddedResource Remove="wwwroot\files\9bd36036\**" />
+	  <EmbeddedResource Remove="wwwroot\files\a51656ef\**" />
+	  <EmbeddedResource Remove="wwwroot\files\b92e80a2\**" />
+	  <EmbeddedResource Remove="wwwroot\files\c5178314\**" />
+	  <EmbeddedResource Remove="wwwroot\files\df8ef441\**" />
+	  <EmbeddedResource Remove="wwwroot\files\e1d9c401\**" />
+	  <EmbeddedResource Remove="wwwroot\files\e67aae98\**" />
+	  <EmbeddedResource Remove="wwwroot\files\eb10b42f\**" />
+	  <EmbeddedResource Remove="wwwroot\files\f3bc5040\**" />
+	  <None Remove="wwwroot\files\04f7b67a\**" />
+	  <None Remove="wwwroot\files\066214c2\**" />
+	  <None Remove="wwwroot\files\0e720a0c\**" />
+	  <None Remove="wwwroot\files\14d17ff6\**" />
+	  <None Remove="wwwroot\files\1eff50f8\**" />
+	  <None Remove="wwwroot\files\264e65e9\**" />
+	  <None Remove="wwwroot\files\2a9f2a3d\**" />
+	  <None Remove="wwwroot\files\2c5711b4\**" />
+	  <None Remove="wwwroot\files\59a41a13\**" />
+	  <None Remove="wwwroot\files\5adb10d9\**" />
+	  <None Remove="wwwroot\files\5e51d5d6\**" />
+	  <None Remove="wwwroot\files\8375a050\**" />
+	  <None Remove="wwwroot\files\8dcae1c5\**" />
+	  <None Remove="wwwroot\files\9bd36036\**" />
+	  <None Remove="wwwroot\files\a51656ef\**" />
+	  <None Remove="wwwroot\files\b92e80a2\**" />
+	  <None Remove="wwwroot\files\c5178314\**" />
+	  <None Remove="wwwroot\files\df8ef441\**" />
+	  <None Remove="wwwroot\files\e1d9c401\**" />
+	  <None Remove="wwwroot\files\e67aae98\**" />
+	  <None Remove="wwwroot\files\eb10b42f\**" />
+	  <None Remove="wwwroot\files\f3bc5040\**" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.2" />
 		<PackageReference Include="Microsoft.AspNetCore.SpaServices" Version="3.1.23" />
 		<PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="6.0.3" />
@@ -34,6 +125,7 @@
 		<Folder Include="Helpers\" />
 		<Folder Include="Models\Faculty\" />
 		<Folder Include="Models\Publication\" />
+		<Folder Include="wwwroot\files\" />
 	</ItemGroup>
 
 	<ItemGroup>
